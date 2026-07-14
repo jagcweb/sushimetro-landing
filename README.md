@@ -14,27 +14,28 @@ Sushi Counter Landing/
 │   ├── icon-256.png                # Logo en mayor resolución
 │   ├── screenshot-counter.jpeg     # Captura: pantalla de contador
 │   ├── screenshot-stats.jpeg       # Captura: estadísticas y ranking
-│   ├── screenshot-achievements.jpeg# Captura: logros desbloqueados
-│   └── sushimetro.apk              # ⚠️ APK de la app — debes añadirlo tú (ver abajo)
+│   └── screenshot-achievements.jpeg# Captura: logros desbloqueados
 └── README.md
 ```
 
 ## 📲 Publicar el APK de descarga
 
-El botón "Descargar para Android" (en el hero y en la sección final) apunta a:
+El APK **no vive en este repo** (supera el límite de 100MB de GitHub para archivos normales). Se publica como asset de un **GitHub Release** y los botones "Descargar para Android" (hero y CTA final) enlazan directamente a esa URL:
 
 ```
-assets/sushimetro.apk
+https://github.com/jagcweb/sushimetro-landing/releases/download/apk-v1.0.0/sushimetro.apk
 ```
 
-Ese archivo **no está incluido** todavía. Para generarlo y publicarlo:
+Para publicar una nueva versión del APK:
 
 ```bash
 # Desde la carpeta del proyecto "Sushi Counter"
 eas build --platform android --profile preview
 ```
 
-Cuando termine el build, descarga el `.apk` resultante, renómbralo a `sushimetro.apk` y colócalo en `assets/` de esta carpeta. El botón de descarga empezará a funcionar automáticamente, sin tocar el HTML.
+1. Descarga el `.apk` generado y renómbralo a `sushimetro.apk`.
+2. Ve a `https://github.com/jagcweb/sushimetro-landing/releases/new`, crea un tag nuevo (p. ej. `apk-v1.1.0`) y sube el archivo como asset.
+3. Actualiza los dos enlaces `href` en `index.html` (busca `releases/download/`) con la nueva URL del release.
 
 ## ✏️ Actualizar contenido
 
@@ -54,4 +55,4 @@ Al ser HTML/CSS puro sin build, puedes desplegarla tal cual en cualquier hosting
 - **GitHub Pages**: sube el contenido a un repo y activa Pages.
 - **Hosting propio**: sube la carpeta completa por FTP/SFTP.
 
-Solo asegúrate de subir también la carpeta `assets/` (incluido el APK) junto con `index.html` y `privacy-policy.html`.
+Solo asegúrate de subir también la carpeta `assets/` junto con `index.html` y `privacy-policy.html`. El APK se sirve aparte, desde GitHub Releases (ver sección anterior).
