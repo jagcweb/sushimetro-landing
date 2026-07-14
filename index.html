@@ -1,0 +1,1000 @@
+<title>Sushimetro — Cuenta tus piezas de sushi</title>
+<meta name="description" content="Sushimetro: contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+
+<style>
+  :root {
+    --bg: #f5f5fa;
+    --bg-alt: #eceef5;
+    --surface: #ffffff;
+    --surface-2: #f0f1f8;
+    --border: #e0e2ee;
+    --text: #14141f;
+    --text-secondary: #55566b;
+    --text-muted: #8a8ba0;
+
+    --primary: #ee5a5a;
+    --primary-dark: #d94848;
+    --secondary: #23a89e;
+    --secondary-dark: #1c8b83;
+    --accent: #caa000;
+
+    --app-bg: #0F0F1A;
+    --app-surface: #1A1A2E;
+    --app-surface-light: #252540;
+    --app-card: #16213E;
+
+    --radius-sm: 12px;
+    --radius: 20px;
+    --radius-lg: 28px;
+    --shadow: 0 20px 50px -20px rgba(20, 20, 31, 0.25);
+    --shadow-lg: 0 30px 80px -30px rgba(20, 20, 31, 0.35);
+
+    --font-display: 'Sushi Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0c14;
+      --bg-alt: #0F0F1A;
+      --surface: #16192b;
+      --surface-2: #1A1A2E;
+      --border: #2a2c42;
+      --text: #f5f5fb;
+      --text-secondary: #a6a8c2;
+      --text-muted: #6f7189;
+
+      --primary: #ff6b6b;
+      --primary-dark: #ee5a5a;
+      --secondary: #4ecdc4;
+      --secondary-dark: #3dbdb5;
+      --accent: #ffe66d;
+
+      --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 30px 90px -30px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0c0c14;
+    --bg-alt: #0F0F1A;
+    --surface: #16192b;
+    --surface-2: #1A1A2E;
+    --border: #2a2c42;
+    --text: #f5f5fb;
+    --text-secondary: #a6a8c2;
+    --text-muted: #6f7189;
+
+    --primary: #ff6b6b;
+    --primary-dark: #ee5a5a;
+    --secondary: #4ecdc4;
+    --secondary-dark: #3dbdb5;
+    --accent: #ffe66d;
+
+    --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 30px 90px -30px rgba(0, 0, 0, 0.7);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f5f5fa;
+    --bg-alt: #eceef5;
+    --surface: #ffffff;
+    --surface-2: #f0f1f8;
+    --border: #e0e2ee;
+    --text: #14141f;
+    --text-secondary: #55566b;
+    --text-muted: #8a8ba0;
+
+    --primary: #ee5a5a;
+    --primary-dark: #d94848;
+    --secondary: #23a89e;
+    --secondary-dark: #1c8b83;
+    --accent: #caa000;
+
+    --shadow: 0 20px 50px -20px rgba(20, 20, 31, 0.25);
+    --shadow-lg: 0 30px 80px -30px rgba(20, 20, 31, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  p { margin: 0; }
+
+  a { color: inherit; }
+
+  ::selection {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-inline: 24px;
+  }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 14px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease;
+  }
+  .nav-cta:hover { transform: translateY(-1px); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    padding-block: 64px 40px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 640px;
+    background:
+      radial-gradient(500px 320px at 20% 20%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 70%),
+      radial-gradient(460px 300px at 85% 10%, color-mix(in srgb, var(--secondary) 18%, transparent), transparent 70%),
+      radial-gradient(400px 260px at 60% 40%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--secondary-dark);
+    background: color-mix(in srgb, var(--secondary) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--secondary) 30%, transparent);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.04;
+  }
+  .hero h1 .hl {
+    color: var(--primary);
+  }
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 46ch;
+  }
+  .hero-actions {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 16px 28px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--primary) 60%, transparent);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 46px -12px color-mix(in srgb, var(--primary) 70%, transparent);
+  }
+  .btn-download svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .btn-download .lines { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+  .btn-download .lines small { font-weight: 500; font-size: 0.7rem; opacity: 0.85; }
+  .btn-download .lines strong { font-size: 1.02rem; }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .stars { color: var(--accent); letter-spacing: 1px; }
+
+  /* ---------- Phone mockup ---------- */
+  .phone-stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .phone {
+    position: relative;
+    width: 260px;
+    border-radius: 34px;
+    padding: 10px;
+    background: linear-gradient(160deg, #2a2a3d, #0F0F1A);
+    box-shadow: var(--shadow-lg);
+    transform: rotate(-2deg);
+  }
+  .phone img {
+    display: block;
+    width: 100%;
+    border-radius: 24px;
+  }
+  .phone-glow {
+    position: absolute;
+    inset: 6% 8% auto 8%;
+    height: 90%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--primary) 35%, transparent), transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
+  }
+  .float-card {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .float-card .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .float-rank {
+    top: 8%;
+    right: -6%;
+    color: var(--accent);
+  }
+  .float-rank .badge {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 1rem;
+    background: linear-gradient(135deg, #8B5A2B, #CD7F32);
+  }
+  .float-streak {
+    bottom: 12%;
+    left: -10%;
+    color: var(--secondary-dark);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .float-rank { color: var(--accent); }
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding-block: 72px; }
+  .section-head {
+    max-width: 56ch;
+    margin-bottom: 40px;
+  }
+  .section-head .eyebrow { margin-bottom: 14px; }
+  .section-head h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+  }
+  .section-head p {
+    margin-top: 14px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  /* ---------- Features ---------- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+  }
+  .feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+  .feature-card:nth-child(1) .feature-icon { background: color-mix(in srgb, var(--primary) 16%, transparent); }
+  .feature-card:nth-child(2) .feature-icon { background: color-mix(in srgb, var(--secondary) 16%, transparent); }
+  .feature-card:nth-child(3) .feature-icon { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+  .feature-card:nth-child(4) .feature-icon { background: color-mix(in srgb, var(--primary) 16%, transparent); }
+  .feature-card:nth-child(5) .feature-icon { background: color-mix(in srgb, var(--secondary) 16%, transparent); }
+  .feature-card:nth-child(6) .feature-icon { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+  .feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  /* ---------- Ranking showcase (dark, always) ---------- */
+  .ranking {
+    background: linear-gradient(180deg, var(--app-bg), var(--app-surface) 60%, var(--app-bg));
+    border-radius: var(--radius-lg);
+    padding: 56px clamp(20px, 5vw, 56px);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .ranking::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px 300px at 15% 0%, color-mix(in srgb, var(--primary) 25%, transparent), transparent 70%),
+                radial-gradient(500px 260px at 90% 100%, color-mix(in srgb, var(--secondary) 20%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+  .ranking-inner { position: relative; z-index: 1; }
+  .ranking .section-head p { color: #b8b9d6; }
+  .ranking .eyebrow {
+    color: #ffe66d;
+    background: rgba(255, 230, 109, 0.12);
+    border-color: rgba(255, 230, 109, 0.3);
+  }
+  .rank-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .rank-chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 10px;
+    text-align: center;
+  }
+  .rank-chip .icon { font-size: 1.6rem; display: block; margin-bottom: 8px; }
+  .rank-chip .tier { display: block; font-weight: 700; font-size: 0.85rem; }
+  .rank-chip .req { display: block; font-size: 0.72rem; color: #9294b8; margin-top: 6px; font-family: var(--font-mono); }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .stat-tile {
+    border-radius: 18px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stat-tile .n {
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+  }
+  .stat-tile .l { font-size: 0.78rem; color: rgba(255,255,255,0.85); margin-top: 4px; }
+  .stat-tile.red { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+  .stat-tile.teal { background: linear-gradient(135deg, #4ecdc4, #3dbdb5); }
+  .stat-tile.gold { background: linear-gradient(135deg, #ffe66d, #f0c808); }
+  .stat-tile.gold .n { color: #2d2200; }
+  .stat-tile.gold .l { color: #6b5600; }
+  .stat-tile.purple { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+
+  /* ---------- Friend brawl / leaderboard ---------- */
+  .brawl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .brawl-copy h2 {
+    margin-top: 14px;
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+    font-weight: 800;
+  }
+  .brawl-copy h2 .hl-teal { color: var(--secondary-dark); }
+  .brawl-copy > p {
+    margin-top: 16px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 48ch;
+  }
+  .brawl-points {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .brawl-points li {
+    position: relative;
+    padding-left: 26px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .brawl-points li::before {
+    content: "🍣";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 0.9rem;
+  }
+  .brawl-points li strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .leaderboard {
+    background: var(--app-surface);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .lb-head {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 10px;
+    padding: 14px 18px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #7375a0;
+  }
+  .lb-head span:last-child { text-align: right; }
+  .lb-row {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .lb-row + .lb-row { margin-top: 6px; }
+  .lb-pos {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #9294c0;
+    font-family: var(--font-mono);
+  }
+  .lb-gold .lb-pos, .lb-silver .lb-pos, .lb-bronze .lb-pos { font-size: 1.3rem; }
+  .lb-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    font-weight: 700;
+    color: #f2f2fb;
+    font-size: 0.95rem;
+  }
+  .lb-player small {
+    display: block;
+    font-weight: 500;
+    font-size: 0.72rem;
+    color: #8688b3;
+    margin-top: 1px;
+  }
+  .lb-badge {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.95rem;
+    font-style: normal;
+  }
+  .lb-total {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    color: #fff;
+    text-align: right;
+  }
+  .lb-gold { background: linear-gradient(90deg, rgba(255,230,109,0.14), transparent); }
+  .lb-silver { background: linear-gradient(90deg, rgba(192,192,192,0.12), transparent); }
+  .lb-bronze { background: linear-gradient(90deg, rgba(205,127,50,0.12), transparent); }
+  .lb-me {
+    background: rgba(78, 205, 196, 0.12);
+    border: 1px solid rgba(78, 205, 196, 0.35);
+  }
+  .lb-me .lb-total, .lb-me .lb-pos { color: var(--secondary); }
+  .lb-caption {
+    margin-top: 10px;
+    padding: 6px 18px 10px;
+    font-size: 0.72rem;
+    color: #6f7189;
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    .brawl { grid-template-columns: 1fr; }
+    .lb-player small { display: inline; margin-left: 6px; }
+  }
+
+  /* ---------- Screens gallery ---------- */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .gallery figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .gallery img {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+  }
+  .gallery figcaption {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+  }
+  .gallery figcaption span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ---------- Achievement ticker ---------- */
+  .ticker-outer {
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 22px 0;
+    box-shadow: var(--shadow);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 14px;
+    width: max-content;
+    animation: scroll 32s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .pill {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ---------- Final CTA ---------- */
+  .cta {
+    text-align: center;
+    padding-block: 80px;
+  }
+  .cta-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark) 60%, #d94848);
+    border-radius: var(--radius-lg);
+    padding: 64px clamp(20px, 6vw, 64px);
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-card h2 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    font-weight: 800;
+  }
+  .cta-card p {
+    margin-top: 14px;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.9);
+    max-width: 50ch;
+    margin-inline: auto;
+  }
+  .cta-card .btn-download {
+    margin-top: 32px;
+    background: #fff;
+    color: var(--primary-dark);
+    box-shadow: 0 16px 40px -12px rgba(0,0,0,0.35);
+  }
+  .cta-card .btn-download svg { fill: var(--primary-dark); }
+  .cta-note {
+    margin-top: 18px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-block: 32px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-links a { text-decoration: none; color: var(--text-muted); }
+  .footer-links a:hover { color: var(--text); }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .phone-stage { order: -1; margin-bottom: 12px; }
+    .phone { width: 220px; }
+    .features { grid-template-columns: 1fr 1fr; }
+    .gallery { grid-template-columns: 1fr; }
+    .rank-row { grid-template-columns: repeat(5, 1fr); }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .float-card { display: none; }
+  }
+  @media (max-width: 560px) {
+    .features { grid-template-columns: 1fr; }
+    .rank-row { grid-template-columns: repeat(3, 1fr); row-gap: 14px; }
+  }
+</style>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">
+      <img src="assets/icon-96.png" alt="" />
+      Sushimetro
+    </div>
+    <a class="nav-cta" href="#descargar">Descargar APK</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">🍣 Contador de sushi para Android</span>
+      <h1>Cuenta tus piezas.<br>Desbloquea tu <span class="hl">leyenda del sushi</span>.</h1>
+      <p class="hero-sub">
+        Sushimetro registra cada pieza que comes, te muestra estadísticas increíbles
+        y te sube de rango — de Hierro a Sushi God — mientras compites en el ranking global.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-download" href="assets/sushimetro.apk" download>
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+          <span class="lines">
+            <small>Descarga directa</small>
+            <strong>Descargar para Android</strong>
+          </span>
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span class="stars">★★★★★</span>
+        <span>60 logros desbloqueables · Modo invitado sin cuenta</span>
+      </div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone-glow" aria-hidden="true"></div>
+      <div class="phone">
+        <img src="assets/screenshot-counter.jpeg" alt="Pantalla principal de Sushimetro mostrando un contador de 10 piezas de sushi" />
+      </div>
+      <div class="float-card float-rank">
+        <span class="badge">🥉</span>
+        Rango Bronce
+      </div>
+      <div class="float-card float-streak">
+        🏅 <span class="num">8/57</span>&nbsp;logros
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="funciones" class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Qué hace</span>
+      <h2>Todo lo que necesitas para llevar la cuenta</h2>
+      <p>Sin hojas de cálculo ni notas sueltas: un contador rápido, historial completo y estadísticas que le sacan una sonrisa a cada visita.</p>
+    </div>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🔢</div>
+        <h3>Contador con animaciones</h3>
+        <p>Suma pieza a pieza o usa los accesos rápidos +5, +10, +15. Cada toque tiene su propia animación.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3>Historial completo</h3>
+        <p>Cada ingesta queda guardada con fecha y hora. Edita o elimina cualquier registro con una pulsación larga.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Estadísticas curiosas</h3>
+        <p>Total de piezas, visitas, kilos acumulados, récords y comparaciones que te sacarán una sonrisa.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>60 logros desbloqueables</h3>
+        <p>Desde "tu sushi pesa como un gato pequeño" hasta "¡montaña de sushi!" a las 75.000 piezas.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚔️</div>
+        <h3>Ranking global estilo LoL</h3>
+        <p>10 rangos de Hierro a Sushi God. Compite con otros usuarios y sube de división.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>Invitado o con cuenta Google</h3>
+        <p>Usa la app sin registro con datos locales, o inicia sesión con Google para sincronizar en la nube.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="ranking">
+      <div class="ranking-inner">
+        <div class="section-head">
+          <span class="eyebrow">⚔️ Sistema de ranking</span>
+          <h2>De Hierro a Sushi God</h2>
+          <p>Cada pieza suma para tu rango global. Compite, sube de división y demuestra quién es el verdadero itamae.</p>
+        </div>
+
+        <div class="rank-row">
+          <div class="rank-chip"><span class="icon">🪨</span><span class="tier">Hierro</span><span class="req">0</span></div>
+          <div class="rank-chip"><span class="icon">🥉</span><span class="tier">Bronce</span><span class="req">50</span></div>
+          <div class="rank-chip"><span class="icon">🥈</span><span class="tier">Plata</span><span class="req">200</span></div>
+          <div class="rank-chip"><span class="icon">🥇</span><span class="tier">Oro</span><span class="req">500</span></div>
+          <div class="rank-chip"><span class="icon">💎</span><span class="tier">Platino</span><span class="req">1.000</span></div>
+          <div class="rank-chip"><span class="icon">🟢</span><span class="tier">Esmeralda</span><span class="req">2.500</span></div>
+          <div class="rank-chip"><span class="icon">💠</span><span class="tier">Diamante</span><span class="req">5.000</span></div>
+          <div class="rank-chip"><span class="icon">⛩️</span><span class="tier">Shogun</span><span class="req">10.000</span></div>
+          <div class="rank-chip"><span class="icon">🔪</span><span class="tier">Itamae</span><span class="req">25.000</span></div>
+          <div class="rank-chip"><span class="icon">🐉</span><span class="tier">Sushi God</span><span class="req">50.000</span></div>
+        </div>
+
+        <div class="stat-strip">
+          <div class="stat-tile red"><div class="n">63</div><div class="l">Total piezas</div></div>
+          <div class="stat-tile teal"><div class="n">1.9</div><div class="l">Kg totales</div></div>
+          <div class="stat-tile gold"><div class="n">53</div><div class="l">Récord en una visita</div></div>
+          <div class="stat-tile purple"><div class="n">8/57</div><div class="l">Logros desbloqueados</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="brawl">
+      <div class="brawl-copy">
+        <span class="eyebrow">🏆 Ranking de usuarios</span>
+        <h2>Deja de contar solo. <span class="hl-teal">Pica con quien tú quieras.</span></h2>
+        <p>
+          Cada pieza que registras entra en el ranking global de usuarios en tiempo real.
+          Mira quién manda esta semana, roba el primer puesto y presume tu rango
+          delante de quien te dijo que no podías con otro rollo más.
+        </p>
+        <ul class="brawl-points">
+          <li><strong>Posiciones en vivo</strong> — el leaderboard se actualiza con cada ingesta guardada.</li>
+          <li><strong>Tu fila, marcada</strong> — encuentra tu posición al instante, resaltada entre el resto.</li>
+          <li><strong>El rango no miente</strong> — cada nombre lleva su insignia, de Hierro a Sushi God.</li>
+        </ul>
+      </div>
+
+      <div class="leaderboard" role="table" aria-label="Ranking de usuarios de ejemplo">
+        <div class="lb-head" role="row">
+          <span>#</span><span>Jugador</span><span>Piezas</span>
+        </div>
+        <div class="lb-row lb-gold" role="row">
+          <span class="lb-pos">🥇</span>
+          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#FF6347,#FFD700)">🐉</em>Naoki_92<small>Sushi God</small></span>
+          <span class="lb-total">52.140</span>
+        </div>
+        <div class="lb-row lb-silver" role="row">
+          <span class="lb-pos">🥈</span>
+          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#DC143C,#FF4500)">🔪</em>wasabi_queen<small>Itamae</small></span>
+          <span class="lb-total">31.780</span>
+        </div>
+        <div class="lb-row lb-bronze" role="row">
+          <span class="lb-pos">🥉</span>
+          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#6C3483,#9B59B6)">⛩️</em>rollo_rey<small>Shogun</small></span>
+          <span class="lb-total">14.020</span>
+        </div>
+        <div class="lb-row lb-me" role="row">
+          <span class="lb-pos">#7</span>
+          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#008B8B,#00CED1)">💎</em>Tú<small>Platino</small></span>
+          <span class="lb-total">1.240</span>
+        </div>
+        <div class="lb-row" role="row">
+          <span class="lb-pos">#8</span>
+          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#8B5A2B,#CD7F32)">🥉</em>maki_marta<small>Bronce</small></span>
+          <span class="lb-total">980</span>
+        </div>
+        <div class="lb-caption">Ranking de ejemplo — el tuyo se actualiza en cada partida</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Dentro de la app</span>
+      <h2>Diseño oscuro, datos claros</h2>
+      <p>Así se ve Sushimetro por dentro: contador, estadísticas y logros con datos reales de usuarios.</p>
+    </div>
+    <div class="gallery">
+      <figure>
+        <img src="assets/screenshot-counter.jpeg" alt="Pantalla de contador con 10 piezas registradas" />
+        <figcaption>Contador<span>Suma piezas con animaciones y accesos rápidos</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/screenshot-stats.jpeg" alt="Pantalla de estadísticas con total de piezas, visitas y ranking Bronce" />
+        <figcaption>Estadísticas &amp; ranking<span>Total, récord, media por visita y tu posición global</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/screenshot-achievements.jpeg" alt="Pantalla de logros desbloqueados con comparaciones curiosas" />
+        <figcaption>Logros<span>60 comparaciones curiosas para desbloquear</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Algunos logros</span>
+      <h2>Comparaciones que no te esperabas</h2>
+    </div>
+    <div class="ticker-outer">
+      <div class="ticker-track">
+        <span class="pill">🐱 10 piezas — pesan como un gato pequeño</span>
+        <span class="pill">🍎 10 piezas = 300g, como una manzana grande</span>
+        <span class="pill">🚗 50 piezas en fila = 4m, el largo de un coche</span>
+        <span class="pill">🌌 42 piezas: la respuesta a la vida, el universo y todo lo demás</span>
+        <span class="pill">💻 75 piezas = 2,25 kg, pesan como un portátil</span>
+        <span class="pill">🦒 50 piezas apiladas, tan altas como una jirafa</span>
+        <span class="pill">🗽 1.000 piezas, más alto que la Estatua de la Libertad</span>
+        <span class="pill">🎰 111 piezas — ¡Jackpot sushero!</span>
+        <span class="pill">🐉 10.001 piezas — ¡Dragón del sushi!</span>
+        <span class="pill">⛩️ 40.000 piezas — ¡Templo del sushi!</span>
+        <!-- duplicated for seamless loop -->
+        <span class="pill" aria-hidden="true">🐱 10 piezas — pesan como un gato pequeño</span>
+        <span class="pill" aria-hidden="true">🍎 10 piezas = 300g, como una manzana grande</span>
+        <span class="pill" aria-hidden="true">🚗 50 piezas en fila = 4m, el largo de un coche</span>
+        <span class="pill" aria-hidden="true">🌌 42 piezas: la respuesta a la vida, el universo y todo lo demás</span>
+        <span class="pill" aria-hidden="true">💻 75 piezas = 2,25 kg, pesan como un portátil</span>
+        <span class="pill" aria-hidden="true">🦒 50 piezas apiladas, tan altas como una jirafa</span>
+        <span class="pill" aria-hidden="true">🗽 1.000 piezas, más alto que la Estatua de la Libertad</span>
+        <span class="pill" aria-hidden="true">🎰 111 piezas — ¡Jackpot sushero!</span>
+        <span class="pill" aria-hidden="true">🐉 10.001 piezas — ¡Dragón del sushi!</span>
+        <span class="pill" aria-hidden="true">⛩️ 40.000 piezas — ¡Templo del sushi!</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="descargar" class="wrap cta">
+    <div class="cta-card">
+      <h2>¿Cuántas piezas hoy?</h2>
+      <p>Descarga Sushimetro gratis para Android y empieza a subir de rango desde tu primera visita.</p>
+      <a class="btn-download" href="assets/sushimetro.apk" download>
+        <svg viewBox="0 0 24 24"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+        <span class="lines">
+          <small>Archivo .apk · Android</small>
+          <strong>Descargar Sushimetro</strong>
+        </span>
+      </a>
+      <p class="cta-note">Requiere permitir "orígenes desconocidos" en tu dispositivo para instalar el APK.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="footer-inner">
+    <span>© 2026 Sushimetro</span>
+    <div class="footer-links">
+      <a href="privacy-policy.html">Política de privacidad</a>
+      <a href="mailto:hola@jagcweb.es">Contacto</a>
+    </div>
+  </div>
+</footer>
