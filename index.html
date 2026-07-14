@@ -1,6 +1,21 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sushimetro — Cuenta tus piezas de sushi</title>
 <meta name="description" content="Sushimetro: contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://sushimetro.app/" />
+<meta property="og:title" content="Sushimetro — Cuenta tus piezas de sushi" />
+<meta property="og:description" content="Contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
+<meta property="og:image" content="https://sushimetro.app/assets/og-image.png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Sushimetro — Cuenta tus piezas de sushi" />
+<meta name="twitter:description" content="Contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
+<meta name="twitter:image" content="https://sushimetro.app/assets/og-image.png" />
 
 <style>
   :root {
@@ -737,10 +752,92 @@
     .rank-row { grid-template-columns: repeat(5, 1fr); }
     .stat-strip { grid-template-columns: repeat(2, 1fr); }
     .float-card { display: none; }
+    section { padding-block: 56px; }
+    .cta { padding-block: 56px; }
   }
-  @media (max-width: 560px) {
+
+  @media (max-width: 640px) {
+    .wrap { padding-inline: 18px; }
+    .nav-inner { padding-block: 12px; }
+    .brand { font-size: 1rem; }
+    .brand img { width: 30px; height: 30px; }
+
+    .hero { padding-block: 40px 24px; }
+    .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); }
+    .hero-sub { font-size: 1rem; max-width: none; }
+    .hero-actions { margin-top: 26px; }
+
+    .btn-download { width: 100%; justify-content: center; padding: 15px 20px; }
+    .cta-card .btn-download { width: auto; }
+
+    .phone { width: 190px; }
+
+    .section-head h2 { font-size: 1.6rem; }
+    .section-head p { font-size: 0.98rem; }
+
+    .ranking { padding: 40px 18px; }
+    .rank-row { grid-template-columns: repeat(3, 1fr); row-gap: 14px; gap: 10px; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-tile .n { font-size: 1.5rem; }
+
     .features { grid-template-columns: 1fr; }
-    .rank-row { grid-template-columns: repeat(3, 1fr); row-gap: 14px; }
+
+    .brawl-copy h2 { font-size: 1.6rem; }
+    .lb-head, .lb-row { grid-template-columns: 32px 1fr auto; padding-inline: 12px; }
+    .lb-player { font-size: 0.88rem; }
+
+    .cta-card { padding: 40px 20px; }
+    .cta-card h2 { font-size: 1.7rem; }
+
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-links { gap: 16px; }
+
+    .back-to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; }
+    .back-to-top svg { width: 20px; height: 20px; }
+  }
+
+  /* ---------- Back to top ---------- */
+  .back-to-top {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    z-index: 60;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px) scale(0.85);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  .back-to-top:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+  .back-to-top:active {
+    transform: translateY(0) scale(0.96);
+  }
+  .back-to-top svg {
+    width: 22px;
+    height: 22px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+      transition: opacity 0.15s linear, visibility 0.15s linear;
+      transform: none !important;
+    }
+    .back-to-top:hover, .back-to-top:active { transform: none; }
   }
 </style>
 
@@ -996,3 +1093,27 @@
     </div>
   </div>
 </footer>
+
+<button type="button" class="back-to-top" aria-label="Volver arriba" title="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+</button>
+
+<script>
+  (function () {
+    const btn = document.querySelector('.back-to-top');
+    const onScroll = () => {
+      btn.classList.toggle('visible', window.scrollY > 480);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      });
+    });
+  })();
+</script>
