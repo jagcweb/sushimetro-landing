@@ -17,1069 +17,725 @@
 <meta name="twitter:description" content="Contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
 <meta name="twitter:image" content="https://sushimetro.app/assets/og-image.png" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
   :root {
-    --bg: #f5f5fa;
-    --bg-alt: #eceef5;
-    --surface: #ffffff;
-    --surface-2: #f0f1f8;
-    --border: #e0e2ee;
-    --text: #14141f;
-    --text-secondary: #55566b;
-    --text-muted: #8a8ba0;
-
-    --primary: #ee5a5a;
-    --primary-dark: #d94848;
-    --secondary: #23a89e;
-    --secondary-dark: #1c8b83;
-    --accent: #caa000;
-
-    --app-bg: #0F0F1A;
-    --app-surface: #1A1A2E;
-    --app-surface-light: #252540;
-    --app-card: #16213E;
-
-    --radius-sm: 12px;
+    --bg: #09090B;
+    --bg-1: #131317;
+    --bg-2: #1C1C22;
+    --border: rgba(255,248,237,0.08);
+    --border-strong: rgba(255,248,237,0.16);
+    --cream: #FFF8ED;
+    --cream-dim: rgba(255,248,237,0.62);
+    --cream-mute: rgba(255,248,237,0.4);
+    --red: #FF4D4D;
+    --red-dim: #C4342F;
+    --wasabi: #B7E34A;
+    --wasabi-dim: #8FB637;
+    --gold: #E8B923;
+    --gold-soft: #F4D35E;
+    --purple: #A78BFA;
+    --ice: #9FE8D4;
+    --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+    --font-heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+    --radius-sm: 10px;
     --radius: 20px;
     --radius-lg: 28px;
-    --shadow: 0 20px 50px -20px rgba(20, 20, 31, 0.25);
-    --shadow-lg: 0 30px 80px -30px rgba(20, 20, 31, 0.35);
-
-    --font-display: 'Sushi Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: ui-monospace, 'SF Mono', Consolas, monospace;
   }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0c0c14;
-      --bg-alt: #0F0F1A;
-      --surface: #16192b;
-      --surface-2: #1A1A2E;
-      --border: #2a2c42;
-      --text: #f5f5fb;
-      --text-secondary: #a6a8c2;
-      --text-muted: #6f7189;
-
-      --primary: #ff6b6b;
-      --primary-dark: #ee5a5a;
-      --secondary: #4ecdc4;
-      --secondary-dark: #3dbdb5;
-      --accent: #ffe66d;
-
-      --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
-      --shadow-lg: 0 30px 90px -30px rgba(0, 0, 0, 0.7);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --bg: #0c0c14;
-    --bg-alt: #0F0F1A;
-    --surface: #16192b;
-    --surface-2: #1A1A2E;
-    --border: #2a2c42;
-    --text: #f5f5fb;
-    --text-secondary: #a6a8c2;
-    --text-muted: #6f7189;
-
-    --primary: #ff6b6b;
-    --primary-dark: #ee5a5a;
-    --secondary: #4ecdc4;
-    --secondary-dark: #3dbdb5;
-    --accent: #ffe66d;
-
-    --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 30px 90px -30px rgba(0, 0, 0, 0.7);
-  }
-
-  :root[data-theme="light"] {
-    --bg: #f5f5fa;
-    --bg-alt: #eceef5;
-    --surface: #ffffff;
-    --surface-2: #f0f1f8;
-    --border: #e0e2ee;
-    --text: #14141f;
-    --text-secondary: #55566b;
-    --text-muted: #8a8ba0;
-
-    --primary: #ee5a5a;
-    --primary-dark: #d94848;
-    --secondary: #23a89e;
-    --secondary-dark: #1c8b83;
-    --accent: #caa000;
-
-    --shadow: 0 20px 50px -20px rgba(20, 20, 31, 0.25);
-    --shadow-lg: 0 30px 80px -30px rgba(20, 20, 31, 0.35);
-  }
-
   * { box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
+    color: var(--cream);
+    font-family: var(--font-heading);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    text-wrap: balance;
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
   p { margin: 0; }
-
-  a { color: inherit; }
-
-  ::selection {
-    background: var(--primary);
-    color: #fff;
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--red); }
+  ::selection { background: var(--red); color: #fff; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 28px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--cream-dim);
   }
-
-  .wrap {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding-inline: 24px;
-  }
+  .eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--red); display: inline-block; }
 
   /* ---------- Nav ---------- */
   .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    backdrop-filter: blur(14px);
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: 14px;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 800;
-    font-size: 1.1rem;
-  }
-  .brand img {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .brand img { width: 32px; height: 32px; border-radius: 9px; }
   .nav-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--primary);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.85rem;
-    padding: 10px 18px;
-    border-radius: 999px;
-    text-decoration: none;
-    box-shadow: var(--shadow);
-    transition: transform 0.15s ease;
-  }
-  .nav-cta:hover { transform: translateY(-1px); }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    position: relative;
-    padding-block: 64px 40px;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute;
-    inset: -20% -10% auto -10%;
-    height: 640px;
-    background:
-      radial-gradient(500px 320px at 20% 20%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 70%),
-      radial-gradient(460px 300px at 85% 10%, color-mix(in srgb, var(--secondary) 18%, transparent), transparent 70%),
-      radial-gradient(400px 260px at 60% 40%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
-    filter: blur(10px);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 48px;
-    align-items: center;
-  }
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--secondary-dark);
-    background: color-mix(in srgb, var(--secondary) 14%, transparent);
-    border: 1px solid color-mix(in srgb, var(--secondary) 30%, transparent);
-    padding: 6px 14px;
-    border-radius: 999px;
-    margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-size: clamp(2.6rem, 5vw, 3.8rem);
-    font-weight: 800;
-    line-height: 1.04;
-  }
-  .hero h1 .hl {
-    color: var(--primary);
-  }
-  .hero-sub {
-    margin-top: 20px;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    max-width: 46ch;
-  }
-  .hero-actions {
-    margin-top: 32px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .btn-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 16px 28px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--primary) 60%, transparent);
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--red); color: #0b0705; font-family: var(--font-heading); font-weight: 700;
+    font-size: 0.8rem; letter-spacing: 0.03em; padding: 11px 20px; border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(255,77,77,0.35), 0 14px 30px -12px rgba(255,77,77,0.55);
     transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .btn-download:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 46px -12px color-mix(in srgb, var(--primary) 70%, transparent);
+  .nav-cta:hover { color: #0b0705; transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,77,77,0.5), 0 18px 36px -10px rgba(255,77,77,0.7); }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding-block: 76px 60px; overflow: hidden; }
+  .hero-glow {
+    position: absolute; inset: -30% -10% auto -10%; height: 720px; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(560px 340px at 14% 15%, rgba(255,77,77,0.22), transparent 70%),
+      radial-gradient(480px 300px at 90% 5%, rgba(183,227,74,0.14), transparent 70%);
+    filter: blur(20px);
+    animation: drift 14s ease-in-out infinite alternate;
   }
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(-2%, 2%) scale(1.04); } }
+  .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 40px; align-items: center; }
+  .hero h1 {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: clamp(3rem, 6.4vw, 5.4rem); line-height: 0.94; letter-spacing: -0.01em;
+  }
+  .hero h1 span { display: block; }
+  .hero h1 .c-cream { color: var(--cream); }
+  .hero h1 .c-wasabi { color: var(--wasabi); }
+  .hero h1 .c-red { color: var(--red); }
+  .hero-sub { margin-top: 26px; font-size: 1.15rem; line-height: 1.55; color: var(--cream-dim); max-width: 42ch; }
+  .hero-actions { margin-top: 34px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, var(--red), var(--red-dim));
+    color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; letter-spacing: 0.01em;
+    padding: 18px 30px; border-radius: var(--radius-sm); text-transform: uppercase;
+    box-shadow: 0 18px 44px -16px rgba(255,77,77,0.6);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-download:hover { color: #fff; transform: translateY(-3px); box-shadow: 0 22px 50px -14px rgba(255,77,77,0.75); }
   .btn-download svg { width: 22px; height: 22px; flex-shrink: 0; }
-  .btn-download .lines { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
-  .btn-download .lines small { font-weight: 500; font-size: 0.7rem; opacity: 0.85; }
-  .btn-download .lines strong { font-size: 1.02rem; }
+  .hero-meta { margin-top: 18px; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--cream-mute); }
 
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-  .stars { color: var(--accent); letter-spacing: 1px; }
-
-  /* ---------- Phone mockup ---------- */
-  .phone-stage {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
+  /* ---------- Phone stage ---------- */
+  .phone-stage { position: relative; display: flex; justify-content: center; padding: 20px 0; }
   .phone {
-    position: relative;
-    width: 260px;
-    border-radius: 34px;
-    padding: 10px;
-    background: linear-gradient(160deg, #2a2a3d, #0F0F1A);
-    box-shadow: var(--shadow-lg);
-    transform: rotate(-2deg);
+    position: relative; width: clamp(240px, 27vw, 310px);
+    border-radius: 40px; padding: 12px;
+    background: linear-gradient(160deg, #232327, #09090b);
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 40px 100px -30px rgba(0,0,0,0.8);
+    transform: rotate(-3deg);
+    transition: transform 0.4s ease;
   }
-  .phone img {
-    display: block;
-    width: 100%;
-    border-radius: 24px;
-  }
+  .phone-stage:hover .phone { transform: rotate(0deg) scale(1.02); }
+  .phone img { display: block; width: 100%; border-radius: 30px; }
   .phone-glow {
-    position: absolute;
-    inset: 6% 8% auto 8%;
-    height: 90%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--primary) 35%, transparent), transparent 70%);
-    filter: blur(40px);
-    z-index: -1;
+    position: absolute; inset: 4% 10% auto 10%; height: 92%;
+    background: radial-gradient(circle, rgba(255,77,77,0.32), transparent 68%);
+    filter: blur(50px); z-index: -1;
   }
   .float-card {
-    position: absolute;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    position: absolute; display: flex; align-items: center; gap: 10px;
+    background: color-mix(in srgb, var(--bg-1) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-strong); border-radius: 16px;
+    padding: 11px 16px; font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
+    box-shadow: 0 20px 40px -18px rgba(0,0,0,0.7);
+    animation: bob 4.5s ease-in-out infinite;
   }
-  .float-card .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-  .float-rank {
-    top: 8%;
-    right: -6%;
-    color: var(--accent);
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .float-rank { top: 4%; right: -2%; animation-delay: 0.4s; }
+  .float-streak { bottom: 16%; left: -4%; color: var(--wasabi); animation-delay: 1.1s; }
+  .float-streak svg { width: 16px; height: 16px; }
+  .seal-mini {
+    width: 30px; height: 30px; flex: 0 0 auto; display: grid; place-items: center;
+    clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
   }
-  .float-rank .badge {
-    width: 30px; height: 30px; border-radius: 50%;
-    display: grid; place-items: center; font-size: 1rem;
-    background: linear-gradient(135deg, #8B5A2B, #CD7F32);
+  .seal-mini svg { width: 15px; height: 15px; }
+  .seal-mini.gold { background: linear-gradient(150deg, var(--gold-soft), var(--gold) 55%, var(--purple)); }
+  .float-total {
+    position: absolute; left: 50%; bottom: -6%; transform: translateX(-50%);
+    display: flex; align-items: baseline; gap: 8px;
+    background: color-mix(in srgb, var(--bg-1) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-strong); border-radius: 999px;
+    padding: 10px 20px;
+    box-shadow: 0 20px 44px -18px rgba(0,0,0,0.75);
+    animation: bob 4.5s ease-in-out infinite; animation-delay: 0.8s;
   }
-  .float-streak {
-    bottom: 12%;
-    left: -10%;
-    color: var(--secondary-dark);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .float-rank { color: var(--accent); }
-  }
-
-  /* ---------- Sections ---------- */
-  section { padding-block: 72px; }
-  .section-head {
-    max-width: 56ch;
-    margin-bottom: 40px;
-  }
-  .section-head .eyebrow { margin-bottom: 14px; }
-  .section-head h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 800;
-  }
-  .section-head p {
-    margin-top: 14px;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.6;
-  }
-
-  /* ---------- Features ---------- */
-  .features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .feature-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 24px;
-    box-shadow: var(--shadow);
-  }
-  .feature-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    font-size: 1.5rem;
-    margin-bottom: 18px;
-  }
-  .feature-card:nth-child(1) .feature-icon { background: color-mix(in srgb, var(--primary) 16%, transparent); }
-  .feature-card:nth-child(2) .feature-icon { background: color-mix(in srgb, var(--secondary) 16%, transparent); }
-  .feature-card:nth-child(3) .feature-icon { background: color-mix(in srgb, var(--accent) 20%, transparent); }
-  .feature-card:nth-child(4) .feature-icon { background: color-mix(in srgb, var(--primary) 16%, transparent); }
-  .feature-card:nth-child(5) .feature-icon { background: color-mix(in srgb, var(--secondary) 16%, transparent); }
-  .feature-card:nth-child(6) .feature-icon { background: color-mix(in srgb, var(--accent) 20%, transparent); }
-  .feature-card h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .feature-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.55;
-  }
-
-  /* ---------- Ranking showcase (dark, always) ---------- */
-  .ranking {
-    background: linear-gradient(180deg, var(--app-bg), var(--app-surface) 60%, var(--app-bg));
-    border-radius: var(--radius-lg);
-    padding: 56px clamp(20px, 5vw, 56px);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  .ranking::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(600px 300px at 15% 0%, color-mix(in srgb, var(--primary) 25%, transparent), transparent 70%),
-                radial-gradient(500px 260px at 90% 100%, color-mix(in srgb, var(--secondary) 20%, transparent), transparent 70%);
+  .float-total-num { font-family: var(--font-mono); font-weight: 700; font-size: 1.4rem; color: var(--cream); }
+  .float-total-unit { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cream-mute); text-transform: uppercase; letter-spacing: 0.04em; }
+  .float-count {
+    position: absolute; left: 50%; bottom: 24%; transform: translateX(-50%) translateY(6px) scale(0.9);
+    font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--wasabi);
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.35s ease;
     pointer-events: none;
   }
-  .ranking-inner { position: relative; z-index: 1; }
-  .ranking .section-head p { color: #b8b9d6; }
-  .ranking .eyebrow {
-    color: #ffe66d;
-    background: rgba(255, 230, 109, 0.12);
-    border-color: rgba(255, 230, 109, 0.3);
-  }
-  .rank-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
-    margin-top: 8px;
-  }
-  .rank-chip {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 16px 10px;
-    text-align: center;
-  }
-  .rank-chip .icon { font-size: 1.6rem; display: block; margin-bottom: 8px; }
-  .rank-chip .tier { display: block; font-weight: 700; font-size: 0.85rem; }
-  .rank-chip .req { display: block; font-size: 0.72rem; color: #9294b8; margin-top: 6px; font-family: var(--font-mono); }
+  .float-count.show { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1); }
 
-  .stat-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-top: 32px;
+  /* ---------- Sections ---------- */
+  section { padding-block: 84px; }
+  .section-head { max-width: 60ch; margin-bottom: 44px; }
+  .section-head h2 {
+    margin-top: 14px; font-family: var(--font-display); text-transform: uppercase;
+    font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.02;
   }
-  .stat-tile {
-    border-radius: 18px;
-    padding: 20px 16px;
-    text-align: center;
-  }
-  .stat-tile .n {
-    font-size: 1.8rem;
-    font-weight: 800;
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
-    color: #fff;
-  }
-  .stat-tile .l { font-size: 0.78rem; color: rgba(255,255,255,0.85); margin-top: 4px; }
-  .stat-tile.red { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
-  .stat-tile.teal { background: linear-gradient(135deg, #4ecdc4, #3dbdb5); }
-  .stat-tile.gold { background: linear-gradient(135deg, #ffe66d, #f0c808); }
-  .stat-tile.gold .n { color: #2d2200; }
-  .stat-tile.gold .l { color: #6b5600; }
-  .stat-tile.purple { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+  .section-head p { margin-top: 16px; color: var(--cream-dim); font-size: 1.05rem; line-height: 1.6; max-width: 52ch; }
+  .center { text-align: center; margin-inline: auto; }
 
-  /* ---------- Friend brawl / leaderboard ---------- */
-  .brawl {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
+  /* ---------- 01/02/03 blocks ---------- */
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+  .trio-item { background: var(--bg-1); padding: 44px 32px; position: relative; overflow: hidden; transition: background 0.25s ease; }
+  .trio-item:hover { background: var(--bg-2); }
+  .trio-num {
+    font-family: var(--font-display); font-size: clamp(3.6rem, 7vw, 5.5rem); line-height: 1;
+    -webkit-text-stroke: 1.5px var(--border-strong); color: transparent; letter-spacing: -0.02em;
   }
-  .brawl-copy h2 {
-    margin-top: 14px;
-    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
-    font-weight: 800;
-  }
-  .brawl-copy h2 .hl-teal { color: var(--secondary-dark); }
-  .brawl-copy > p {
-    margin-top: 16px;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.65;
-    max-width: 48ch;
-  }
-  .brawl-points {
-    list-style: none;
-    margin: 28px 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .brawl-points li {
-    position: relative;
-    padding-left: 26px;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  .brawl-points li::before {
-    content: "🍣";
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 0.9rem;
-  }
-  .brawl-points li strong {
-    color: var(--text);
-    font-weight: 700;
-  }
+  .trio-item--1 .trio-num { -webkit-text-stroke-color: rgba(255,77,77,0.35); }
+  .trio-item--2 .trio-num { -webkit-text-stroke-color: rgba(159,232,212,0.35); }
+  .trio-item--3 .trio-num { -webkit-text-stroke-color: rgba(183,227,74,0.35); }
+  .trio-icon { width: 40px; height: 40px; margin-top: -8px; }
+  .trio-item--1 .trio-icon { color: var(--red); }
+  .trio-item--2 .trio-icon { color: var(--ice); }
+  .trio-item--3 .trio-icon { color: var(--wasabi); }
+  .trio-item h3 { margin-top: 18px; font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; }
+  .trio-item p { margin-top: 10px; color: var(--cream-dim); font-size: 0.95rem; line-height: 1.55; }
 
-  .leaderboard {
-    background: var(--app-surface);
-    border-radius: var(--radius-lg);
-    padding: 8px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+  /* ---------- Rank path ---------- */
+  .rank-section { background: var(--bg-1); }
+  .rank-path {
+    position: relative; display: flex; gap: clamp(10px, 2vw, 22px);
+    padding: 30px 6px 14px; overflow-x: auto; scroll-snap-type: x proximity;
   }
-  .lb-head {
-    display: grid;
-    grid-template-columns: 44px 1fr auto;
-    gap: 10px;
-    padding: 14px 18px 10px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #7375a0;
+  .rank-path::-webkit-scrollbar { height: 4px; }
+  .rank-path::before {
+    content: ''; position: absolute; left: 30px; right: 30px; top: 44px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border-strong) 8%, var(--border-strong) 92%, transparent);
+    z-index: 0;
   }
+  .rank-item { position: relative; z-index: 1; flex: 0 0 auto; width: 92px; display: flex; flex-direction: column; align-items: center; text-align: center; scroll-snap-align: center; }
+  .seal {
+    width: 56px; height: 56px; display: grid; place-items: center; position: relative;
+    clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+    border: 1px solid var(--border-strong);
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+  .rank-item:hover .seal { transform: scale(1.1); }
+  .seal-num { font-family: var(--font-mono); font-weight: 700; font-size: 1.05rem; color: var(--bg); }
+  .rank-tier { margin-top: 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .rank-req { margin-top: 3px; font-family: var(--font-mono); font-size: 0.65rem; color: var(--cream-mute); }
+  .seal--1 { background: linear-gradient(150deg, #A1A1AA, #71717A); }
+  .seal--2 { background: linear-gradient(150deg, #C87F4F, #8B5A2B); }
+  .seal--3 { background: linear-gradient(150deg, #E4E4E7, #9CA3AF); }
+  .seal--4 { background: linear-gradient(150deg, #D9B44A, #A9822C); }
+  .seal--5 { background: linear-gradient(150deg, #F1F5F0, #CBD5C9); }
+  .seal--6 { background: linear-gradient(150deg, var(--wasabi), var(--wasabi-dim)); }
+  .seal--7 { background: linear-gradient(150deg, #BFF6E8, var(--ice)); }
+  .seal--8 { background: linear-gradient(150deg, #2A2A30, #0d0d0f); border-color: rgba(255,77,77,0.5); box-shadow: inset 0 0 0 1px rgba(255,77,77,0.25); }
+  .seal--8 .seal-num { color: var(--red); }
+  .seal--9 { background: linear-gradient(150deg, var(--red), var(--red-dim)); }
+  .rank-item--10 { width: 116px; }
+  .seal--10 {
+    width: 76px; height: 76px;
+    background: linear-gradient(150deg, var(--gold-soft), var(--gold) 55%, var(--purple));
+    box-shadow: 0 0 0 1px rgba(232,185,35,0.5), 0 0 34px rgba(232,185,35,0.45);
+    animation: pulse-gold 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse-gold { 0%, 100% { box-shadow: 0 0 0 1px rgba(232,185,35,0.5), 0 0 24px rgba(232,185,35,0.35); } 50% { box-shadow: 0 0 0 1px rgba(232,185,35,0.7), 0 0 42px rgba(232,185,35,0.6); } }
+  .seal--10 svg { width: 34px; height: 34px; color: #1a1200; }
+  .rank-item--10 .rank-tier { color: var(--gold-soft); font-size: 0.8rem; }
+
+  /* ---------- Level path (XP) ---------- */
+  .level-section { background: var(--bg-1); }
+  .level-path {
+    position: relative; display: flex; gap: clamp(8px, 1.6vw, 18px);
+    padding: 24px 6px 6px; overflow-x: auto; scroll-snap-type: x proximity;
+  }
+  .level-path::-webkit-scrollbar { height: 4px; }
+  .level-item { position: relative; flex: 0 0 auto; width: 78px; display: flex; flex-direction: column; align-items: center; text-align: center; scroll-snap-align: center; }
+  .level-badge {
+    width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-size: 1.5rem;
+    background: var(--bg-2); border: 1px solid var(--border-strong);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .level-item:hover .level-badge { transform: scale(1.1); border-color: var(--ice); }
+  .level-item.is-current .level-badge { border-color: var(--ice); box-shadow: 0 0 0 1px var(--ice), 0 0 24px rgba(159,232,212,0.35); }
+  .level-name { margin-top: 10px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.2; }
+  .level-range { margin-top: 2px; font-family: var(--font-mono); font-size: 0.62rem; color: var(--cream-mute); }
+  .level-now {
+    margin-top: 40px; display: flex; align-items: center; gap: 26px; flex-wrap: wrap;
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px 30px;
+  }
+  .level-now-badge { width: 60px; height: 60px; border-radius: 50%; background: rgba(159,232,212,0.12); border: 1px solid var(--ice); display: grid; place-items: center; font-size: 1.8rem; flex: 0 0 auto; }
+  .level-now-info { flex: 1; min-width: 220px; }
+  .level-now-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--cream-mute); text-transform: uppercase; }
+  .level-now-title { margin-top: 4px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; }
+  .level-now-title span { color: var(--ice); font-family: var(--font-mono); }
+  .level-bar-row { margin-top: 14px; display: flex; align-items: center; gap: 12px; }
+  .level-bar { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-1); overflow: hidden; }
+  .level-bar-fill { width: 0%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #5CC9B4, var(--ice)); transition: width 1.3s cubic-bezier(0.16,1,0.3,1); }
+  .level-bar-frac { font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-mute); white-space: nowrap; }
+
+  /* ---------- Streak strip ---------- */
+  .streak-strip {
+    margin-top: 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px 28px;
+  }
+  .streak-count { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-weight: 700; font-size: 1.3rem; color: var(--wasabi); }
+  .streak-count svg { width: 22px; height: 22px; }
+  .streak-label { font-size: 0.8rem; color: var(--cream-dim); }
+  .streak-milestones { display: flex; gap: 8px; margin-left: auto; }
+  .streak-pill {
+    font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: var(--cream-mute);
+    border: 1px solid var(--border-strong); border-radius: 999px; padding: 6px 12px;
+  }
+  .streak-pill.reached { color: var(--wasabi); border-color: rgba(183,227,74,0.4); background: rgba(183,227,74,0.08); }
+
+  /* ---------- Missions ---------- */
+  .missions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .mission-card {
+    background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 30px; transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mission-card:hover { transform: translateY(-4px); border-color: var(--border-strong); }
+  .mission-head { display: flex; align-items: center; gap: 12px; }
+  .mission-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(183,227,74,0.12); color: var(--wasabi); flex: 0 0 auto; }
+  .mission-icon svg { width: 20px; height: 20px; }
+  .mission-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; }
+  .mission-desc { margin-top: 14px; color: var(--cream-dim); font-size: 0.92rem; line-height: 1.5; }
+  .mission-bar-row { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  .mission-bar { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-2); overflow: hidden; }
+  .mission-bar-fill { width: 0%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--wasabi-dim), var(--wasabi)); transition: width 1.3s cubic-bezier(0.16,1,0.3,1); }
+  .mission-frac { font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; color: var(--cream-dim); white-space: nowrap; }
+  .mission-xp {
+    display: inline-flex; margin-top: 18px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.04em; color: var(--wasabi); background: rgba(183,227,74,0.12);
+    border: 1px solid rgba(183,227,74,0.3); padding: 6px 12px; border-radius: 999px;
+  }
+  .mission-locked {
+    margin-top: 20px; display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-mute);
+  }
+  .mission-locked svg { width: 15px; height: 15px; flex: 0 0 auto; }
+  .mission-caption { margin-top: 22px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--cream-mute); text-align: center; }
+
+  /* ---------- Leaderboard ---------- */
+  .lb-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px; }
+  .lb-head { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; padding: 16px 20px 10px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cream-mute); }
   .lb-head span:last-child { text-align: right; }
-  .lb-row {
-    display: grid;
-    grid-template-columns: 44px 1fr auto;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 18px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.02);
-  }
-  .lb-row + .lb-row { margin-top: 6px; }
-  .lb-pos {
-    font-size: 1rem;
-    font-weight: 800;
-    color: #9294c0;
-    font-family: var(--font-mono);
-  }
-  .lb-gold .lb-pos, .lb-silver .lb-pos, .lb-bronze .lb-pos { font-size: 1.3rem; }
-  .lb-player {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 0;
-    font-weight: 700;
-    color: #f2f2fb;
-    font-size: 0.95rem;
-  }
-  .lb-player small {
-    display: block;
-    font-weight: 500;
-    font-size: 0.72rem;
-    color: #8688b3;
-    margin-top: 1px;
-  }
-  .lb-badge {
-    flex: 0 0 auto;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 0.95rem;
-    font-style: normal;
-  }
-  .lb-total {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
-    font-weight: 800;
-    color: #fff;
-    text-align: right;
-  }
-  .lb-gold { background: linear-gradient(90deg, rgba(255,230,109,0.14), transparent); }
-  .lb-silver { background: linear-gradient(90deg, rgba(192,192,192,0.12), transparent); }
-  .lb-bronze { background: linear-gradient(90deg, rgba(205,127,50,0.12), transparent); }
-  .lb-me {
-    background: rgba(78, 205, 196, 0.12);
-    border: 1px solid rgba(78, 205, 196, 0.35);
-  }
-  .lb-me .lb-total, .lb-me .lb-pos { color: var(--secondary); }
-  .lb-caption {
-    margin-top: 10px;
-    padding: 6px 18px 10px;
-    font-size: 0.72rem;
-    color: #6f7189;
-    text-align: center;
-  }
+  .lb-row { display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 10px; padding: 13px 20px; border-radius: 14px; transition: background 0.2s ease; }
+  .lb-row:hover { background: rgba(255,248,237,0.03); }
+  .lb-row + .lb-row { margin-top: 4px; }
+  .lb-seal { width: 32px; height: 32px; clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%); display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: var(--bg); flex: 0 0 auto; }
+  .lb-player { display: flex; align-items: center; gap: 10px; min-width: 0; font-weight: 700; font-size: 0.95rem; }
+  .lb-player small { display: block; font-weight: 500; font-size: 0.7rem; color: var(--cream-mute); margin-top: 1px; }
+  .lb-total { font-family: var(--font-mono); font-weight: 700; text-align: right; }
+  .lb-gold { background: linear-gradient(90deg, rgba(232,185,35,0.1), transparent); }
+  .lb-me { background: rgba(255,77,77,0.08); border: 1px solid rgba(255,77,77,0.3); }
+  .lb-me .lb-total { color: var(--red); }
+  .lb-caption { margin-top: 8px; padding: 8px 20px 10px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--cream-mute); text-align: center; }
 
-  @media (max-width: 860px) {
-    .brawl { grid-template-columns: 1fr; }
-    .lb-player small { display: inline; margin-left: 6px; }
-  }
+  /* ---------- Screens ---------- */
+  .screens-section { background: var(--bg-1); }
+  .screens { display: flex; justify-content: center; align-items: flex-end; gap: clamp(10px, 3vw, 32px); flex-wrap: wrap; padding-top: 20px; }
+  .screen-item { text-align: center; }
+  .screen-item .phone { width: clamp(160px, 19vw, 210px); box-shadow: 0 40px 90px -28px rgba(0,0,0,0.85); transition: transform 0.3s ease; }
+  .screen-item:nth-child(1) .phone { transform: rotate(-4deg) translateY(14px); }
+  .screen-item:nth-child(2) .phone { transform: rotate(0deg) translateY(-10px); }
+  .screen-item:nth-child(3) .phone { transform: rotate(4deg) translateY(14px); }
+  .screen-item:hover .phone { transform: rotate(0deg) translateY(-6px) scale(1.03); }
+  .screen-cap { margin-top: 18px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream-dim); }
 
-  /* ---------- Screens gallery ---------- */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .gallery figure {
-    margin: 0;
-    background: var(--surface);
+  /* ---------- Fact rotator ---------- */
+  .fact-card {
+    position: relative; border-radius: var(--radius-lg); padding: clamp(48px, 8vw, 80px) clamp(20px, 6vw, 60px);
+    text-align: center; overflow: hidden;
+    background: radial-gradient(600px 320px at 50% -10%, rgba(255,77,77,0.16), transparent 70%), var(--bg-1);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
   }
-  .gallery img {
-    width: 100%;
-    border-radius: 14px;
-    display: block;
-  }
-  .gallery figcaption {
-    margin-top: 14px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-align: center;
-    color: var(--text);
-  }
-  .gallery figcaption span {
-    display: block;
-    font-weight: 400;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  /* ---------- Achievement ticker ---------- */
-  .ticker-outer {
-    overflow: hidden;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    padding: 22px 0;
-    box-shadow: var(--shadow);
-  }
-  .ticker-track {
-    display: flex;
-    gap: 14px;
-    width: max-content;
-    animation: scroll 32s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ticker-track { animation: none; }
-  }
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .pill {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 10px 18px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    white-space: nowrap;
-  }
+  .fact-eyebrow { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cream-mute); text-transform: uppercase; }
+  .fact-body { margin-top: 6px; opacity: 1; transform: translateY(0); transition: opacity 0.32s ease, transform 0.32s ease; }
+  .fact-body.fading { opacity: 0; transform: translateY(10px); }
+  .fact-value { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.2rem); color: var(--cream); text-transform: uppercase; }
+  .fact-text { margin-top: 14px; font-size: 1.15rem; color: var(--cream-dim); max-width: 42ch; margin-inline: auto; }
+  .fact-dots { margin-top: 30px; display: flex; justify-content: center; gap: 7px; }
+  .fact-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-strong); transition: all 0.3s ease; }
+  .fact-dot.active { background: var(--red); width: 18px; border-radius: 4px; }
 
   /* ---------- Final CTA ---------- */
-  .cta {
-    text-align: center;
-    padding-block: 80px;
-  }
+  .cta { text-align: center; padding-block: 100px; }
   .cta-card {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark) 60%, #d94848);
-    border-radius: var(--radius-lg);
-    padding: 64px clamp(20px, 6vw, 64px);
-    color: #fff;
-    box-shadow: var(--shadow-lg);
+    position: relative; background: linear-gradient(160deg, #14090a, var(--bg) 60%);
+    border: 1px solid rgba(255,77,77,0.25); border-radius: var(--radius-lg);
+    padding: 72px clamp(20px, 6vw, 70px); overflow: hidden;
   }
-  .cta-card h2 {
-    font-size: clamp(1.9rem, 4vw, 2.6rem);
-    font-weight: 800;
+  .cta-card::before {
+    content: ''; position: absolute; inset: -20% -10% auto -10%; height: 60%;
+    background: radial-gradient(500px 260px at 50% 0%, rgba(255,77,77,0.28), transparent 70%);
+    pointer-events: none;
   }
-  .cta-card p {
-    margin-top: 14px;
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.9);
-    max-width: 50ch;
-    margin-inline: auto;
-  }
-  .cta-card .btn-download {
-    margin-top: 32px;
-    background: #fff;
-    color: var(--primary-dark);
-    box-shadow: 0 16px 40px -12px rgba(0,0,0,0.35);
-  }
-  .cta-card .btn-download svg { fill: var(--primary-dark); }
-  .cta-note {
-    margin-top: 18px;
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.75);
-  }
+  .cta-card h2 { position: relative; font-family: var(--font-display); text-transform: uppercase; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.04; }
+  .cta-card p { position: relative; margin-top: 18px; font-size: 1.05rem; color: var(--cream-dim); max-width: 48ch; margin-inline: auto; }
+  .cta-card .btn-download { position: relative; margin-top: 36px; }
+  .cta-note { position: relative; margin-top: 20px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-mute); }
 
   /* ---------- Footer ---------- */
-  footer {
-    border-top: 1px solid var(--border);
-    padding-block: 32px;
-    color: var(--text-muted);
-    font-size: 0.85rem;
+  footer { border-top: 1px solid var(--border); padding-block: 34px; color: var(--cream-mute); font-size: 0.85rem; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .footer-links { display: flex; gap: 22px; font-family: var(--font-mono); font-size: 0.78rem; }
+  .footer-links a:hover { color: var(--cream); }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; z-index: 80;
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    display: flex; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, #17171b, #0c0c0e);
+    border: 1px solid rgba(183,227,74,0.4); border-radius: 16px; padding: 14px 22px;
+    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.8), 0 0 30px rgba(183,227,74,0.15);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .footer-links {
-    display: flex;
-    gap: 20px;
-  }
-  .footer-links a { text-decoration: none; color: var(--text-muted); }
-  .footer-links a:hover { color: var(--text); }
-
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--secondary);
-    outline-offset: 2px;
-  }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 860px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .phone-stage { order: -1; margin-bottom: 12px; }
-    .phone { width: 220px; }
-    .features { grid-template-columns: 1fr 1fr; }
-    .gallery { grid-template-columns: 1fr; }
-    .rank-row { grid-template-columns: repeat(5, 1fr); }
-    .stat-strip { grid-template-columns: repeat(2, 1fr); }
-    .float-card { display: none; }
-    section { padding-block: 56px; }
-    .cta { padding-block: 56px; }
-  }
-
-  @media (max-width: 640px) {
-    .wrap { padding-inline: 18px; }
-    .nav-inner { padding-block: 12px; }
-    .brand { font-size: 1rem; }
-    .brand img { width: 30px; height: 30px; }
-
-    .hero { padding-block: 40px 24px; }
-    .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); }
-    .hero-sub { font-size: 1rem; max-width: none; }
-    .hero-actions { margin-top: 26px; }
-
-    .btn-download { width: 100%; justify-content: center; padding: 15px 20px; }
-    .cta-card .btn-download { width: auto; }
-
-    .phone { width: 143px; }
-
-    .section-head h2 { font-size: 1.6rem; }
-    .section-head p { font-size: 0.98rem; }
-
-    .ranking { padding: 40px 18px; }
-    .rank-row { grid-template-columns: repeat(3, 1fr); row-gap: 14px; gap: 10px; }
-    .stat-strip { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .stat-tile .n { font-size: 1.5rem; }
-
-    .features { grid-template-columns: 1fr; }
-
-    .brawl-copy h2 { font-size: 1.6rem; }
-    .lb-head, .lb-row { grid-template-columns: 32px 1fr auto; padding-inline: 12px; }
-    .lb-player { font-size: 0.88rem; }
-
-    .cta-card { padding: 40px 20px; }
-    .cta-card h2 { font-size: 1.7rem; }
-
-    .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .footer-links { gap: 16px; }
-
-    .back-to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; }
-    .back-to-top svg { width: 20px; height: 20px; }
-  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast-icon { width: 34px; height: 34px; border-radius: 10px; background: rgba(183,227,74,0.15); color: var(--wasabi); display: grid; place-items: center; flex: 0 0 auto; }
+  .toast-icon svg { width: 18px; height: 18px; }
+  .toast-eyebrow { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--wasabi); text-transform: uppercase; }
+  .toast-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; margin-top: 1px; }
 
   /* ---------- Back to top ---------- */
   .back-to-top {
-    position: fixed;
-    right: 28px;
-    bottom: 28px;
-    width: 52px;
-    height: 52px;
-    border: none;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #fff;
-    box-shadow: var(--shadow-lg);
-    cursor: pointer;
-    z-index: 60;
-    opacity: 0;
-    visibility: hidden;
+    position: fixed; right: 28px; bottom: 28px; width: 52px; height: 52px;
+    border: none; border-radius: 50%; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--red), var(--red-dim));
+    color: #fff; box-shadow: 0 20px 48px -18px rgba(0,0,0,0.7);
+    cursor: pointer; z-index: 60; opacity: 0; visibility: hidden;
     transform: translateY(16px) scale(0.85);
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
   }
-  .back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-  }
-  .back-to-top:hover {
-    transform: translateY(-3px) scale(1.05);
-  }
-  .back-to-top:active {
-    transform: translateY(0) scale(0.96);
-  }
-  .back-to-top svg {
-    width: 22px;
-    height: 22px;
-  }
+  .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+  .back-to-top:hover { transform: translateY(-3px) scale(1.05); }
+  .back-to-top:active { transform: translateY(0) scale(0.96); }
+  .back-to-top svg { width: 22px; height: 22px; }
   @media (prefers-reduced-motion: reduce) {
-    .back-to-top {
-      transition: opacity 0.15s linear, visibility 0.15s linear;
-      transform: none !important;
-    }
+    .back-to-top { transition: opacity 0.15s linear, visibility 0.15s linear; transform: none !important; }
     .back-to-top:hover, .back-to-top:active { transform: none; }
+    .ticker-track, .hero-glow, .seal--10 { animation: none; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .phone-stage { order: -1; margin-bottom: 8px; }
+    .trio { grid-template-columns: 1fr; }
+    .missions { grid-template-columns: 1fr; }
+    .float-card { display: none; }
+    section { padding-block: 60px; }
+    .level-now { flex-direction: column; align-items: flex-start; }
+    .streak-strip { flex-direction: column; align-items: flex-start; }
+    .streak-milestones { margin-left: 0; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding-inline: 20px; }
+    .hero { padding-block: 44px 30px; }
+    .btn-download { width: 100%; justify-content: center; }
+    .lb-head, .lb-row { grid-template-columns: 36px 1fr auto; padding-inline: 12px; }
+    .cta-card { padding: 48px 22px; }
+    .toast { left: 16px; right: 16px; transform: translateY(20px); }
+    .toast.show { transform: translateY(0); }
+    .back-to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; }
+    .back-to-top svg { width: 20px; height: 20px; }
   }
 </style>
 
 <nav class="nav">
   <div class="wrap nav-inner">
-    <div class="brand">
-      <img src="assets/icon-96.png" alt="" />
-      Sushimetro
-    </div>
+    <div class="brand"><img src="assets/icon-96.png" alt="" />Sushimetro</div>
+    <a class="nav-cta" href="#descargar">Descargar</a>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <div>
-      <h1>¿Cuántas piezas vas a <span class="hl">comerte hoy</span>?</h1>
-      <p class="hero-sub">
-        Sushimetro registra cada pieza que comes, te muestra estadísticas increíbles
-        y te sube de rango — de Hierro a Sushi God — mientras compites en el ranking global.
-      </p>
+      <h1>
+        <span class="c-cream">Come.</span>
+        <span class="c-wasabi">Cuenta.</span>
+        <span class="c-cream">Sube de</span>
+        <span class="c-red">Rango.</span>
+      </h1>
+      <p class="hero-sub">El contador de sushi que convierte cada visita al restaurante en una competición.</p>
       <div class="hero-actions">
         <a class="btn-download" href="https://github.com/jagcweb/sushimetro-landing/releases/download/apk-v1.0.0/sushimetro.apk">
           <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-          <span class="lines">
-            <small>Descarga directa</small>
-            <strong>Descargar para Android</strong>
-          </span>
+          Descargar para Android
         </a>
       </div>
-      <div class="hero-meta">
-        <span class="stars">★★★★★</span>
-        <span>+60 logros desbloqueables</span>
-      </div>
+      <p class="hero-meta">ANDROID · GRATIS · SIN REGISTRO OBLIGATORIO</p>
     </div>
 
     <div class="phone-stage">
       <div class="phone-glow" aria-hidden="true"></div>
-      <div class="phone">
-        <img src="assets/screenshot-counter.jpeg" alt="Pantalla principal de Sushimetro mostrando un contador de 10 piezas de sushi" />
-      </div>
+      <div class="phone"><img src="assets/screenshot-counter-new.png" alt="Pantalla principal de Sushimetro mostrando un contador de piezas de sushi" /></div>
       <div class="float-card float-rank">
-        <span class="badge">🥉</span>
-        Rango Bronce
+        <span class="seal-mini gold"><svg viewBox="0 0 24 24" fill="#1a1200"><path d="M4 18h16L19 9l-4 4-3-7-3 7-4-4L4 18Z"/><circle cx="5" cy="8" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="19" cy="8" r="1.4"/></svg></span>
+        SUSHI GOD · #1
       </div>
       <div class="float-card float-streak">
-        🏅 <span class="num">8/57</span>&nbsp;logros
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4-3 5-3 9a3 3 0 006 0c1 1 1 3 0 4a6 6 0 01-9-5c0-4 3-5 3-8 1 1 2 1 3 0z"/></svg>
+        Racha x8
       </div>
+      <div class="float-total"><span class="float-total-num" id="heroCount">0</span><span class="float-total-unit">🍣 piezas</span></div>
+      <div class="float-count" id="heroBump"></div>
     </div>
   </div>
 </header>
 
 <main>
-  <section id="funciones" class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Qué hace</span>
-      <h2>Todo lo que necesitas para llevar la cuenta</h2>
-      <p>Sin hojas de cálculo ni notas sueltas: un contador rápido, historial completo y estadísticas que le sacan una sonrisa a cada visita.</p>
+  <section class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow" style="justify-content:center">Qué hace</span>
+      <h2>No es solo contar.</h2>
+      <p class="center">Tres experiencias, una sola app: contar, superar y competir.</p>
     </div>
-    <div class="features">
-      <div class="feature-card">
-        <div class="feature-icon">🔢</div>
-        <h3>Contador con animaciones</h3>
-        <p>Suma pieza a pieza o usa los accesos rápidos +5, +10, +15. Cada toque tiene su propia animación.</p>
+    <div class="trio">
+      <div class="trio-item trio-item--1">
+        <div class="trio-num">01</div>
+        <svg class="trio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+        <h3>Cuenta</h3>
+        <p>Suma pieza a pieza o usa los accesos rápidos +5 y +10. Cada toque tiene su propia animación.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📖</div>
-        <h3>Historial completo</h3>
-        <p>Cada ingesta queda guardada con fecha y hora. Edita o elimina cualquier registro con una pulsación larga.</p>
+      <div class="trio-item trio-item--2">
+        <div class="trio-num">02</div>
+        <svg class="trio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 10l-5 4.4 1.4 7L12 17.8 6.6 21.4 8 14.4 3 10l6.4-1.4z"/></svg>
+        <h3>Supera</h3>
+        <p>Récords personales, más de 50 logros desbloqueables y un dato distinto sobre tu sushi cada vez que abres la app.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Estadísticas curiosas</h3>
-        <p>Total de piezas, visitas, kilos acumulados, récords y comparaciones que te sacarán una sonrisa.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏆</div>
-        <h3>60 logros desbloqueables</h3>
-        <p>Desde "tu sushi pesa como un gato pequeño" hasta "¡montaña de sushi!" a las 75.000 piezas.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚔️</div>
-        <h3>Ranking global estilo LoL</h3>
-        <p>10 rangos de Hierro a Sushi God. Compite con otros usuarios y sube de división.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔐</div>
-        <h3>Invitado o con cuenta Google</h3>
-        <p>Usa la app sin registro con datos locales, o inicia sesión con Google para sincronizar en la nube.</p>
+      <div class="trio-item trio-item--3">
+        <div class="trio-num">03</div>
+        <svg class="trio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l3 6 6.5.9-4.7 4.6L18 21l-6-3.4L6 21l1.2-6.5L2.5 9.9 9 9z"/></svg>
+        <h3>Compite</h3>
+        <p>Ranking global en tiempo real, de Hierro a Sushi God. Demuestra quién es el verdadero itamae.</p>
       </div>
     </div>
   </section>
 
-  <section class="wrap">
-    <div class="ranking">
-      <div class="ranking-inner">
-        <div class="section-head">
-          <span class="eyebrow">⚔️ Sistema de ranking</span>
-          <h2>De Hierro a Sushi God</h2>
-          <p>Cada pieza suma para tu rango global. Compite, sube de división y demuestra quién es el verdadero itamae.</p>
-        </div>
-
-        <div class="rank-row">
-          <div class="rank-chip"><span class="icon">🪨</span><span class="tier">Hierro</span><span class="req">0</span></div>
-          <div class="rank-chip"><span class="icon">🥉</span><span class="tier">Bronce</span><span class="req">50</span></div>
-          <div class="rank-chip"><span class="icon">🥈</span><span class="tier">Plata</span><span class="req">200</span></div>
-          <div class="rank-chip"><span class="icon">🥇</span><span class="tier">Oro</span><span class="req">500</span></div>
-          <div class="rank-chip"><span class="icon">💎</span><span class="tier">Platino</span><span class="req">1.000</span></div>
-          <div class="rank-chip"><span class="icon">🟢</span><span class="tier">Esmeralda</span><span class="req">2.500</span></div>
-          <div class="rank-chip"><span class="icon">💠</span><span class="tier">Diamante</span><span class="req">5.000</span></div>
-          <div class="rank-chip"><span class="icon">⛩️</span><span class="tier">Shogun</span><span class="req">10.000</span></div>
-          <div class="rank-chip"><span class="icon">🔪</span><span class="tier">Itamae</span><span class="req">25.000</span></div>
-          <div class="rank-chip"><span class="icon">🐉</span><span class="tier">Sushi God</span><span class="req">50.000</span></div>
-        </div>
-
-        <div class="stat-strip">
-          <div class="stat-tile red"><div class="n">63</div><div class="l">Total piezas</div></div>
-          <div class="stat-tile teal"><div class="n">1.9</div><div class="l">Kg totales</div></div>
-          <div class="stat-tile gold"><div class="n">53</div><div class="l">Récord en una visita</div></div>
-          <div class="stat-tile purple"><div class="n">8/57</div><div class="l">Logros desbloqueados</div></div>
+  <section class="rank-section">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow" style="justify-content:center">Sistema de rango</span>
+        <h2>Sube de rango</h2>
+        <p class="center">Cada pieza suma para tu rango global. Diez niveles, de Hierro a Sushi God.</p>
+      </div>
+      <div class="rank-path">
+        <div class="rank-item"><span class="seal seal--1"><span class="seal-num">I</span></span><span class="rank-tier">Hierro</span><span class="rank-req">0</span></div>
+        <div class="rank-item"><span class="seal seal--2"><span class="seal-num">II</span></span><span class="rank-tier">Bronce</span><span class="rank-req">50</span></div>
+        <div class="rank-item"><span class="seal seal--3"><span class="seal-num">III</span></span><span class="rank-tier">Plata</span><span class="rank-req">150</span></div>
+        <div class="rank-item"><span class="seal seal--4"><span class="seal-num">IV</span></span><span class="rank-tier">Oro</span><span class="rank-req">350</span></div>
+        <div class="rank-item"><span class="seal seal--5"><span class="seal-num">V</span></span><span class="rank-tier">Platino</span><span class="rank-req">750</span></div>
+        <div class="rank-item"><span class="seal seal--6"><span class="seal-num">VI</span></span><span class="rank-tier">Esmeralda</span><span class="rank-req">1.500</span></div>
+        <div class="rank-item"><span class="seal seal--7"><span class="seal-num">VII</span></span><span class="rank-tier">Diamante</span><span class="rank-req">3.000</span></div>
+        <div class="rank-item"><span class="seal seal--8"><span class="seal-num">VIII</span></span><span class="rank-tier">Shogun</span><span class="rank-req">5.000</span></div>
+        <div class="rank-item"><span class="seal seal--9"><span class="seal-num">IX</span></span><span class="rank-tier">Itamae</span><span class="rank-req">8.000</span></div>
+        <div class="rank-item rank-item--10">
+          <span class="seal seal--10"><svg viewBox="0 0 24 24" fill="#1a1200"><path d="M4 18h16L19 9l-4 4-3-7-3 7-4-4L4 18Z"/><circle cx="5" cy="8" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="19" cy="8" r="1.4"/></svg></span>
+          <span class="rank-tier">Sushi God</span><span class="rank-req">12.000</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="wrap">
-    <div class="brawl">
-      <div class="brawl-copy">
-        <span class="eyebrow">🏆 Ranking de usuarios</span>
-        <h2>Deja de contar solo. <span class="hl-teal">Pica con quien tú quieras.</span></h2>
-        <p>
-          Cada pieza que registras entra en el ranking global de usuarios en tiempo real.
-          Mira quién manda esta semana, roba el primer puesto y presume tu rango
-          delante de quien te dijo que no podías con otro rollo más.
-        </p>
-        <ul class="brawl-points">
-          <li><strong>Posiciones en vivo</strong> — el leaderboard se actualiza con cada ingesta guardada.</li>
-          <li><strong>Tu fila, marcada</strong> — encuentra tu posición al instante, resaltada entre el resto.</li>
-          <li><strong>El rango no miente</strong> — cada nombre lleva su insignia, de Hierro a Sushi God.</li>
-        </ul>
+  <section class="level-section">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow" style="justify-content:center">Progresión de nivel</span>
+        <h2>Tu rango dice cuánto comes. Tu nivel dice cuánto juegas.</h2>
+        <p class="center">100 niveles y 10 títulos por XP: sesiones, récords, constancia y variedad — no solo piezas.</p>
       </div>
-
-      <div class="leaderboard" role="table" aria-label="Ranking de usuarios de ejemplo">
-        <div class="lb-head" role="row">
-          <span>#</span><span>Jugador</span><span>Piezas</span>
+      <div class="level-path">
+        <div class="level-item"><div class="level-badge">🍚</div><span class="level-name">Aprendiz</span><span class="level-range">1–10</span></div>
+        <div class="level-item"><div class="level-badge">🥢</div><span class="level-name">Comensal</span><span class="level-range">11–20</span></div>
+        <div class="level-item is-current"><div class="level-badge">🍱</div><span class="level-name">Sushi Lover</span><span class="level-range">21–30</span></div>
+        <div class="level-item"><div class="level-badge">🍣</div><span class="level-name">Sushi Fan</span><span class="level-range">31–40</span></div>
+        <div class="level-item"><div class="level-badge">🌶️</div><span class="level-name">Wasabi Warrior</span><span class="level-range">41–50</span></div>
+        <div class="level-item"><div class="level-badge">🎋</div><span class="level-name">Maestro del Palillo</span><span class="level-range">51–60</span></div>
+        <div class="level-item"><div class="level-badge">🌊</div><span class="level-name">Ola de Sabor</span><span class="level-range">61–70</span></div>
+        <div class="level-item"><div class="level-badge">🏮</div><span class="level-name">Leyenda Local</span><span class="level-range">71–80</span></div>
+        <div class="level-item"><div class="level-badge">🌟</div><span class="level-name">Ícono Sushero</span><span class="level-range">81–90</span></div>
+        <div class="level-item"><div class="level-badge">🐲</div><span class="level-name">Leyenda Suprema</span><span class="level-range">91–100</span></div>
+      </div>
+      <div class="level-now">
+        <div class="level-now-badge">🍱</div>
+        <div class="level-now-info">
+          <div class="level-now-label">Ejemplo de progreso</div>
+          <div class="level-now-title">Nivel 27 · <span>Sushi Lover</span></div>
+          <div class="level-bar-row">
+            <div class="level-bar"><div class="level-bar-fill" data-bar="78%"></div></div>
+            <span class="level-bar-frac">1.240 / 1.600 XP</span>
+          </div>
         </div>
-        <div class="lb-row lb-gold" role="row">
-          <span class="lb-pos">🥇</span>
-          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#FF6347,#FFD700)">🐉</em>Naoki_92<small>Sushi God</small></span>
-          <span class="lb-total">52.140</span>
-        </div>
-        <div class="lb-row lb-silver" role="row">
-          <span class="lb-pos">🥈</span>
-          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#DC143C,#FF4500)">🔪</em>wasabi_queen<small>Itamae</small></span>
-          <span class="lb-total">31.780</span>
-        </div>
-        <div class="lb-row lb-bronze" role="row">
-          <span class="lb-pos">🥉</span>
-          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#6C3483,#9B59B6)">⛩️</em>rollo_rey<small>Shogun</small></span>
-          <span class="lb-total">14.020</span>
-        </div>
-        <div class="lb-row lb-me" role="row">
-          <span class="lb-pos">#7</span>
-          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#008B8B,#00CED1)">💎</em>Tú<small>Platino</small></span>
-          <span class="lb-total">1.240</span>
-        </div>
-        <div class="lb-row" role="row">
-          <span class="lb-pos">#8</span>
-          <span class="lb-player"><em class="lb-badge" style="background:linear-gradient(135deg,#8B5A2B,#CD7F32)">🥉</em>maki_marta<small>Bronce</small></span>
-          <span class="lb-total">980</span>
-        </div>
-        <div class="lb-caption">Ranking de ejemplo — el tuyo se actualiza en cada partida</div>
       </div>
     </div>
   </section>
 
   <section class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Dentro de la app</span>
-      <h2>Diseño oscuro, datos claros</h2>
-      <p>Así se ve Sushimetro por dentro: contador, estadísticas y logros con datos reales de usuarios.</p>
+    <div class="section-head center">
+      <span class="eyebrow" style="justify-content:center">Progresión semanal</span>
+      <h2>Tus misiones de esta semana</h2>
+      <p class="center">Se renuevan cada semana (y también hay misiones mensuales y anuales). El objetivo de piezas se adapta a tu media, no es un número fijo para todos.</p>
     </div>
-    <div class="gallery">
-      <figure>
-        <img src="assets/screenshot-counter.jpeg" alt="Pantalla de contador con 10 piezas registradas" />
-        <figcaption>Contador<span>Suma piezas con animaciones y accesos rápidos</span></figcaption>
-      </figure>
-      <figure>
-        <img src="assets/screenshot-stats.jpeg" alt="Pantalla de estadísticas con total de piezas, visitas y ranking Bronce" />
-        <figcaption>Estadísticas &amp; ranking<span>Total, récord, media por visita y tu posición global</span></figcaption>
-      </figure>
-      <figure>
-        <img src="assets/screenshot-achievements.jpeg" alt="Pantalla de logros desbloqueados con comparaciones curiosas" />
-        <figcaption>Logros<span>60 comparaciones curiosas para desbloquear</span></figcaption>
-      </figure>
+    <div class="missions">
+      <div class="mission-card">
+        <div class="mission-head">
+          <div class="mission-icon"><span style="font-size:1.1rem">🍣</span></div>
+          <div class="mission-title">Come tus piezas</div>
+        </div>
+        <p class="mission-desc">Objetivo dinámico según tu media de las últimas semanas.</p>
+        <div class="mission-bar-row">
+          <div class="mission-bar"><div class="mission-bar-fill" data-bar="85%"></div></div>
+          <span class="mission-frac">34/40</span>
+        </div>
+        <span class="mission-xp">+75–250 XP</span>
+      </div>
+      <div class="mission-card">
+        <div class="mission-head">
+          <div class="mission-icon"><span style="font-size:1.1rem">🥢</span></div>
+          <div class="mission-title">Haz 2 visitas</div>
+        </div>
+        <p class="mission-desc">Registra sushi al menos dos veces esta semana.</p>
+        <div class="mission-bar-row">
+          <div class="mission-bar"><div class="mission-bar-fill" data-bar="50%"></div></div>
+          <span class="mission-frac">1/2</span>
+        </div>
+        <span class="mission-xp">+75 XP</span>
+      </div>
+      <div class="mission-card">
+        <div class="mission-head">
+          <div class="mission-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 4.8 5.3.7-3.9 3.7 1 5.2L12 15l-4.6 2.4 1-5.2-3.9-3.7 5.3-.7z"/></svg></div>
+          <div class="mission-title">Supera tu récord</div>
+        </div>
+        <p class="mission-desc">Aparece en cuanto tienes una marca propia que batir.</p>
+        <div class="mission-locked">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+          Se desbloquea con tu primer récord
+        </div>
+      </div>
+    </div>
+    <div class="mission-caption">Misiones de ejemplo — las tuyas se generan a partir de tu propio historial</div>
+
+    <div class="streak-strip">
+      <div class="streak-count">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4-3 5-3 9a3 3 0 006 0c1 1 1 3 0 4a6 6 0 01-9-5c0-4 3-5 3-8 1 1 2 1 3 0z"/></svg>
+        8 semanas
+      </div>
+      <span class="streak-label">Registra sushi cada semana para mantener la racha viva.</span>
+      <div class="streak-milestones">
+        <span class="streak-pill reached">3</span>
+        <span class="streak-pill reached">5</span>
+        <span class="streak-pill">10</span>
+        <span class="streak-pill">25</span>
+        <span class="streak-pill">50</span>
+      </div>
     </div>
   </section>
 
   <section class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Algunos logros</span>
-      <h2>Comparaciones que no te esperabas</h2>
+    <div class="section-head center">
+      <span class="eyebrow" style="justify-content:center">Ranking de usuarios</span>
+      <h2>¿Quién come más?</h2>
+      <p class="center">El ranking se actualiza con cada ingesta guardada. Encuentra tu fila.</p>
     </div>
-    <div class="ticker-outer">
-      <div class="ticker-track">
-        <span class="pill">🐱 10 piezas — pesan como un gato pequeño</span>
-        <span class="pill">🍎 10 piezas = 300g, como una manzana grande</span>
-        <span class="pill">🚗 50 piezas en fila = 4m, el largo de un coche</span>
-        <span class="pill">🌌 42 piezas: la respuesta a la vida, el universo y todo lo demás</span>
-        <span class="pill">💻 75 piezas = 2,25 kg, pesan como un portátil</span>
-        <span class="pill">🦒 50 piezas apiladas, tan altas como una jirafa</span>
-        <span class="pill">🗽 1.000 piezas, más alto que la Estatua de la Libertad</span>
-        <span class="pill">🎰 111 piezas — ¡Jackpot sushero!</span>
-        <span class="pill">🐉 10.001 piezas — ¡Dragón del sushi!</span>
-        <span class="pill">⛩️ 40.000 piezas — ¡Templo del sushi!</span>
-        <!-- duplicated for seamless loop -->
-        <span class="pill" aria-hidden="true">🐱 10 piezas — pesan como un gato pequeño</span>
-        <span class="pill" aria-hidden="true">🍎 10 piezas = 300g, como una manzana grande</span>
-        <span class="pill" aria-hidden="true">🚗 50 piezas en fila = 4m, el largo de un coche</span>
-        <span class="pill" aria-hidden="true">🌌 42 piezas: la respuesta a la vida, el universo y todo lo demás</span>
-        <span class="pill" aria-hidden="true">💻 75 piezas = 2,25 kg, pesan como un portátil</span>
-        <span class="pill" aria-hidden="true">🦒 50 piezas apiladas, tan altas como una jirafa</span>
-        <span class="pill" aria-hidden="true">🗽 1.000 piezas, más alto que la Estatua de la Libertad</span>
-        <span class="pill" aria-hidden="true">🎰 111 piezas — ¡Jackpot sushero!</span>
-        <span class="pill" aria-hidden="true">🐉 10.001 piezas — ¡Dragón del sushi!</span>
-        <span class="pill" aria-hidden="true">⛩️ 40.000 piezas — ¡Templo del sushi!</span>
+    <div class="lb-card" role="table" aria-label="Ranking de usuarios de ejemplo">
+      <div class="lb-head" role="row"><span>#</span><span>Jugador</span><span>Piezas</span></div>
+      <div class="lb-row lb-gold" role="row">
+        <span class="seal-mini gold"><svg viewBox="0 0 24 24" fill="#1a1200"><path d="M4 18h16L19 9l-4 4-3-7-3 7-4-4L4 18Z"/><circle cx="5" cy="8" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="19" cy="8" r="1.4"/></svg></span>
+        <span class="lb-player">Naoki_92<small>Sushi God</small></span>
+        <span class="lb-total">52.140</span>
+      </div>
+      <div class="lb-row" role="row">
+        <span class="lb-seal seal--9">IX</span>
+        <span class="lb-player">wasabi_queen<small>Itamae</small></span>
+        <span class="lb-total">31.780</span>
+      </div>
+      <div class="lb-row" role="row">
+        <span class="lb-seal seal--8">VIII</span>
+        <span class="lb-player">rollo_rey<small>Shogun</small></span>
+        <span class="lb-total">14.020</span>
+      </div>
+      <div class="lb-row lb-me" role="row">
+        <span class="lb-seal seal--5">V</span>
+        <span class="lb-player">Tú<small>Platino</small></span>
+        <span class="lb-total">1.240</span>
+      </div>
+      <div class="lb-row" role="row">
+        <span class="lb-seal seal--2">II</span>
+        <span class="lb-player">maki_marta<small>Bronce</small></span>
+        <span class="lb-total">980</span>
+      </div>
+      <div class="lb-caption">Ranking de ejemplo — el tuyo se actualiza en cada partida</div>
+    </div>
+  </section>
+
+  <section class="screens-section">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow" style="justify-content:center">Dentro de la app</span>
+        <h2>Mira lo que has comido</h2>
+        <p class="center">Contador, estadísticas y logros con datos reales de usuarios.</p>
+      </div>
+      <div class="screens">
+        <div class="screen-item">
+          <div class="phone"><img src="assets/screenshot-counter-new.png" alt="Pantalla de contador con piezas registradas" /></div>
+          <div class="screen-cap">Contador</div>
+        </div>
+        <div class="screen-item">
+          <div class="phone"><img src="assets/screenshot-stats-new.png" alt="Pantalla de estadísticas con total de piezas y ranking" /></div>
+          <div class="screen-cap">Estadísticas</div>
+        </div>
+        <div class="screen-item">
+          <div class="phone"><img src="assets/screenshot-achievements-new.png" alt="Pantalla de misiones, racha y logros desbloqueados" /></div>
+          <div class="screen-cap">Logros</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow" style="justify-content:center">Algunos logros</span>
+      <h2>¿Sabías que...?</h2>
+    </div>
+    <div class="fact-card">
+      <span class="fact-eyebrow">Logro desbloqueable</span>
+      <div class="fact-body">
+        <div class="fact-value"></div>
+        <p class="fact-text"></p>
+      </div>
+      <div class="fact-dots">
+        <span class="fact-dot"></span><span class="fact-dot"></span><span class="fact-dot"></span>
+        <span class="fact-dot"></span><span class="fact-dot"></span><span class="fact-dot"></span>
+        <span class="fact-dot"></span><span class="fact-dot"></span><span class="fact-dot"></span>
+        <span class="fact-dot"></span>
       </div>
     </div>
   </section>
 
   <section id="descargar" class="wrap cta">
     <div class="cta-card">
-      <h2>¿Cuántas piezas hoy?</h2>
+      <h2>Tu próximo récord empieza con una pieza.</h2>
       <p>Descarga Sushimetro gratis para Android y empieza a subir de rango desde tu primera visita.</p>
       <a class="btn-download" href="https://github.com/jagcweb/sushimetro-landing/releases/download/apk-v1.0.0/sushimetro.apk">
-        <svg viewBox="0 0 24 24"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-        <span class="lines">
-          <small>Archivo .apk · Android</small>
-          <strong>Descargar Sushimetro</strong>
-        </span>
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+        Descargar Sushimetro
       </a>
-      <p class="cta-note">Requiere permitir "orígenes desconocidos" en tu dispositivo para instalar el APK.</p>
+      <p class="cta-note">APK OFICIAL · GRATIS · REQUIERE PERMITIR "ORÍGENES DESCONOCIDOS" PARA INSTALAR</p>
     </div>
   </section>
 </main>
@@ -1094,6 +750,14 @@
   </div>
 </footer>
 
+<div class="toast">
+  <div class="toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 4.8 5.3.7-3.9 3.7 1 5.2L12 15l-4.6 2.4 1-5.2-3.9-3.7 5.3-.7z"/></svg></div>
+  <div>
+    <div class="toast-eyebrow">Logro desbloqueado</div>
+    <div class="toast-title">Rollo Master · 500 piezas</div>
+  </div>
+</div>
+
 <button type="button" class="back-to-top" aria-label="Volver arriba" title="Volver arriba">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 19V5M5 12l7-7 7 7" />
@@ -1101,19 +765,88 @@
 </button>
 
 <script>
-  (function () {
-    const btn = document.querySelector('.back-to-top');
-    const onScroll = () => {
-      btn.classList.toggle('visible', window.scrollY > 480);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+(function () {
+  var FACTS = [
+    { value: '10 PIEZAS', text: 'pesan aproximadamente como un gato pequeño.' },
+    { value: '10 PIEZAS', text: 'son unos 300 g, como una manzana grande.' },
+    { value: '50 PIEZAS', text: 'en fila miden 4 m, el largo de un coche.' },
+    { value: '42 PIEZAS', text: 'la respuesta a la vida, el universo y todo lo demás.' },
+    { value: '75 PIEZAS', text: 'pesan 2,25 kg, como un portátil.' },
+    { value: '50 PIEZAS', text: 'apiladas, tan altas como una jirafa.' },
+    { value: '1.000 PIEZAS', text: 'más alto que la Estatua de la Libertad.' },
+    { value: '111 PIEZAS', text: '¡Jackpot sushero!' },
+    { value: '10.001 PIEZAS', text: '¡Dragón del sushi desbloqueado!' },
+    { value: '40.000 PIEZAS', text: '¡Templo del sushi conquistado!' },
+  ];
 
-    btn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+  // Mission / level progress bars animate in on load.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.querySelectorAll('[data-bar]').forEach(function (el) {
+        el.style.width = el.getAttribute('data-bar');
       });
-    });
-  })();
+    }, 400);
+  });
+
+  // Hero piece counter: counts up then keeps bumping.
+  var countEl = document.getElementById('heroCount');
+  var bumpEl = document.getElementById('heroBump');
+  if (countEl) {
+    var n = 0;
+    var countUp = setInterval(function () {
+      n = Math.min(63, n + 3);
+      countEl.textContent = n;
+      if (n >= 63) clearInterval(countUp);
+    }, 30);
+
+    setInterval(function () {
+      var add = Math.random() > 0.7 ? 5 : 1;
+      n = n > 90 ? 42 : n + add;
+      countEl.textContent = n;
+      bumpEl.textContent = '+' + add;
+      bumpEl.classList.add('show');
+      setTimeout(function () { bumpEl.classList.remove('show'); }, 900);
+    }, 3200);
+  }
+
+  // Rotating "¿Sabías que...?" fact card.
+  var factIndex = 0;
+  var factBody = document.querySelector('.fact-body');
+  var factValue = document.querySelector('.fact-value');
+  var factText = document.querySelector('.fact-text');
+  var dots = document.querySelectorAll('.fact-dot');
+  function renderFact() {
+    var f = FACTS[factIndex];
+    factValue.textContent = f.value;
+    factText.textContent = f.text;
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === factIndex); });
+  }
+  renderFact();
+  setInterval(function () {
+    factBody.classList.add('fading');
+    setTimeout(function () {
+      factIndex = (factIndex + 1) % FACTS.length;
+      renderFact();
+      factBody.classList.remove('fading');
+    }, 320);
+  }, 4200);
+
+  // Achievement toast loop.
+  var toast = document.querySelector('.toast');
+  function toastLoop() {
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3800);
+  }
+  setTimeout(toastLoop, 1400);
+  setInterval(toastLoop, 13000);
+
+  // Back to top.
+  var btn = document.querySelector('.back-to-top');
+  function onScroll() { btn.classList.toggle('visible', window.scrollY > 480); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
+})();
 </script>
