@@ -430,6 +430,58 @@
     .ticker-track, .hero-glow, .seal--10 { animation: none; }
   }
 
+  /* Guía de acceso a la beta cerrada de Google Play */
+  .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 14px; text-align: left; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .step {
+    display: flex; gap: 18px; align-items: flex-start;
+    background: rgba(255,248,237,0.03); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px;
+  }
+  .step-num {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--red); color: #0b0705;
+    font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem;
+  }
+  .step-body h3 { margin: 4px 0 6px; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--cream); }
+  .step-body p { margin: 0 0 14px; color: var(--cream-dim); font-size: 0.95rem; line-height: 1.5; }
+  .btn-step {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+    border: 1px solid var(--border-strong); border-radius: 999px;
+    color: var(--cream); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem;
+    text-decoration: none; transition: border-color .2s, background .2s;
+  }
+  .btn-step:hover { border-color: var(--red); background: rgba(255,77,77,0.08); color: var(--cream); }
+  .step .btn-download { margin-top: 0; padding: 12px 22px; font-size: 0.95rem; }
+  .step-warn {
+    max-width: 620px; margin: 22px auto 0; text-align: left;
+    padding: 16px 20px; border-radius: var(--radius-sm);
+    background: rgba(232,185,35,0.08); border: 1px solid rgba(232,185,35,0.35);
+    color: var(--cream); font-size: 0.93rem; line-height: 1.5;
+  }
+  .step-warn strong { color: var(--gold-soft); }
+
+  /* Aviso de cookies (Google Analytics solo se carga tras aceptar) */
+  .cookie-banner {
+    position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 60;
+    max-width: 560px; margin: 0 auto; padding: 18px 20px;
+    background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,0.7);
+  }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-banner p { margin: 0 0 14px; color: var(--cream-dim); font-size: 0.9rem; line-height: 1.5; }
+  .cookie-banner a { color: var(--cream); }
+  .cookie-actions { display: flex; gap: 10px; justify-content: flex-end; }
+  .cookie-actions button {
+    padding: 9px 18px; border-radius: 999px; cursor: pointer;
+    font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+    border: 1px solid var(--border-strong); background: transparent; color: var(--cream);
+  }
+  .cookie-actions .cookie-accept { background: var(--red); border-color: var(--red); color: #0b0705; }
+  .footer-links button {
+    background: none; border: 0; padding: 0; cursor: pointer;
+    color: inherit; font: inherit; text-decoration: inherit;
+  }
+
   @media (max-width: 900px) {
     .hero-inner { grid-template-columns: 1fr; }
     .phone-stage { order: -1; margin-bottom: 8px; }
@@ -473,12 +525,12 @@
       </h1>
       <p class="hero-sub">El contador de sushi que convierte cada visita al restaurante en una competición.</p>
       <div class="hero-actions">
-        <a class="btn-download" href="https://github.com/jagcweb/sushimetro-landing/releases/download/apk-v1.1.1/sushimetro.apk">
+        <a class="btn-download" href="#descargar" data-step="hero_cta">
           <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-          Descargar para Android
+          Consíguela en Android
         </a>
       </div>
-      <p class="hero-meta">ANDROID · GRATIS · SIN REGISTRO OBLIGATORIO</p>
+      <p class="hero-meta">ANDROID · GRATIS · VÍA GOOGLE PLAY</p>
     </div>
 
     <div class="phone-stage">
@@ -730,12 +782,43 @@
   <section id="descargar" class="wrap cta">
     <div class="cta-card">
       <h2>Tu próximo récord empieza con una pieza.</h2>
-      <p>Descarga Sushimetro gratis para Android y empieza a subir de rango desde tu primera visita.</p>
-      <a class="btn-download" href="https://github.com/jagcweb/sushimetro-landing/releases/download/apk-v1.1.1/sushimetro.apk">
-        <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-        Descargar Sushimetro
-      </a>
-      <p class="cta-note">APK OFICIAL · GRATIS · REQUIERE PERMITIR "ORÍGENES DESCONOCIDOS" PARA INSTALAR</p>
+      <p>Sushimetro está en beta en Google Play. Entrar es gratis y se hace en un minuto: tres pasos y a contar.</p>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <h3>Únete al grupo de testers</h3>
+            <p>Es lo que te da acceso a la beta. Entra y pulsa «Unirse al grupo».</p>
+            <a class="btn-step" data-step="unirse_grupo" href="https://groups.google.com/g/sushimetro-testers" target="_blank" rel="noopener">Unirme al grupo</a>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <h3>Acepta la invitación</h3>
+            <p>Pulsa «Convertirme en tester». Si te dice que no tienes acceso, espera un par de minutos: el grupo tarda un poco en activarse.</p>
+            <a class="btn-step" data-step="aceptar_prueba" href="https://play.google.com/apps/testing/com.sushimetro.app" target="_blank" rel="noopener">Aceptar invitación</a>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <h3>Instala desde Google Play</h3>
+            <p>Ya puedes descargarla como cualquier otra app, y las actualizaciones te llegarán solas.</p>
+            <a class="btn-download" data-step="instalar_play" href="https://play.google.com/store/apps/details?id=com.sushimetro.app" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.463 11.463 0 00-9.94 0L4.65 5.67a.643.643 0 00-.87-.2c-.28.18-.37.54-.22.83L5.4 9.48C2.93 11.1 1.3 13.85 1 17h22c-.3-3.15-1.93-5.9-4.4-7.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+              Instalar Sushimetro
+            </a>
+          </div>
+        </li>
+      </ol>
+
+      <div class="step-warn">
+        <strong>Importante:</strong> haz los tres pasos con la <strong>misma cuenta de Google que tienes en el móvil</strong>. Es el fallo más habitual: con otra cuenta, Play no te dejará instalarla.
+      </div>
+
+      <p class="cta-note">¿Instalaste antes el APK de esta web? Desinstálalo y entra por aquí para recibir las actualizaciones. Si usabas la app con tu cuenta de Google, no pierdes nada: tus datos están en la nube.</p>
     </div>
   </section>
 </main>
@@ -745,10 +828,100 @@
     <span>© 2026 Sushimetro</span>
     <div class="footer-links">
       <a href="privacy-policy.html">Política de privacidad</a>
+      <button type="button" data-open-cookies>Configurar cookies</button>
       <a href="mailto:hola@jagcweb.es">Contacto</a>
     </div>
   </div>
 </footer>
+
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+  <p>Usamos Google Analytics para saber cuánta gente visita la web y cómo mejorarla. Solo se activa si lo aceptas, y puedes cambiar de opinión cuando quieras desde el pie de página. <a href="privacy-policy.html">Más información</a></p>
+  <div class="cookie-actions">
+    <button type="button" data-consent="denied">Rechazar</button>
+    <button type="button" data-consent="granted" class="cookie-accept">Aceptar</button>
+  </div>
+</div>
+
+<script>
+  /*
+   * Google Analytics con consentimiento previo (Consent Mode v2, modo básico).
+   * gtag.js no se descarga hasta que el visitante acepta: sin consentimiento no
+   * se envía nada, ni siquiera pings anónimos, que es lo que exige la AEPD.
+   * La elección se guarda en localStorage y se puede cambiar desde el pie.
+   */
+  (function () {
+    var GA_ID = 'G-PENDIENTE';
+    var KEY = 'sushimetro_cookies';
+    var banner = document.getElementById('cookie-banner');
+
+    // Mientras no haya ID de Analytics no se pide consentimiento para nada:
+    // ni aviso de cookies ni enlace para configurarlas.
+    if (GA_ID === 'G-PENDIENTE') {
+      document.querySelectorAll('[data-open-cookies]').forEach(function (b) { b.hidden = true; });
+      return;
+    }
+
+    function cargarAnalytics() {
+      if (window.__gaCargado || GA_ID === 'G-PENDIENTE') return;
+      window.__gaCargado = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      gtag('consent', 'default', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    }
+
+    function decidir(valor) {
+      try { localStorage.setItem(KEY, valor); } catch (e) {}
+      banner.hidden = true;
+      if (valor === 'granted') {
+        cargarAnalytics();
+      } else if (window.__gaCargado) {
+        // Retirar el consentimiento: se corta el envío y se borran las cookies
+        // de GA. Una recarga deja la página como si nunca se hubiera aceptado.
+        gtag('consent', 'update', { analytics_storage: 'denied' });
+        document.cookie.split(';').forEach(function (c) {
+          var nombre = c.split('=')[0].trim();
+          if (/^_ga/.test(nombre)) {
+            document.cookie = nombre + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+            document.cookie = nombre + '=; Max-Age=0; path=/';
+          }
+        });
+      }
+    }
+
+    var guardado = null;
+    try { guardado = localStorage.getItem(KEY); } catch (e) {}
+    if (guardado === 'granted') cargarAnalytics();
+    else if (guardado !== 'denied') banner.hidden = false;
+
+    banner.addEventListener('click', function (e) {
+      var v = e.target.getAttribute('data-consent');
+      if (v) decidir(v);
+    });
+    document.querySelectorAll('[data-open-cookies]').forEach(function (b) {
+      b.addEventListener('click', function () { banner.hidden = false; });
+    });
+
+    // Embudo de la beta: cada paso de la guía de instalación se registra como
+    // evento, para ver dónde se queda la gente. Sin consentimiento no se envía.
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-step]');
+      if (a && window.__gaCargado) {
+        gtag('event', 'beta_paso', { paso: a.getAttribute('data-step') });
+      }
+    });
+  })();
+</script>
 
 <div class="toast">
   <div class="toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 4.8 5.3.7-3.9 3.7 1 5.2L12 15l-4.6 2.4 1-5.2-3.9-3.7 5.3-.7z"/></svg></div>
