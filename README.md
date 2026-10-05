@@ -1,26 +1,34 @@
 # 🍣 Sushimetro — Landing Page
 
-Landing page estática para promocionar **Sushimetro** y ofrecer la descarga directa del APK para Android.
+Landing page estática de **Sushimetro**, publicada con GitHub Pages (rama `master`) en [https://sushimetro.app/](https://sushimetro.app/).
 
 ## 📂 Estructura
 
 ```
-Sushi Counter Landing/
-├── index.html            # Landing principal (hero, features, ranking, leaderboard, CTA)
-├── privacy-policy.html    # Política de privacidad (enlazada desde el footer)
+├── index.html                 # Landing principal
+├── privacy-policy.html        # Política de privacidad
+├── delete-account.html        # Eliminación de cuenta
+├── 404.html                   # Página no encontrada
+├── robots.txt
+├── sitemap.xml
+├── CNAME                      # sushimetro.app
 ├── assets/
-│   ├── favicon.png               # Favicon (icono de Sushimetro)
-│   ├── icon-96.png                # Logo para la barra de navegación
-│   ├── icon-256.png                # Logo en mayor resolución
-│   ├── screenshot-counter.jpeg     # Captura: pantalla de contador
-│   ├── screenshot-stats.jpeg       # Captura: estadísticas y ranking
-│   └── screenshot-achievements.jpeg# Captura: logros desbloqueados
+│   ├── favicon.png
+│   ├── icon-96.png
+│   ├── icon-256.png
+│   ├── og-image.png
+│   ├── screenshot-counter-new.png
+│   ├── screenshot-stats-new.png
+│   ├── screenshot-achievements-new.png
+│   ├── screenshot-counter.jpeg        # captura anterior, no enlazada
+│   ├── screenshot-stats.jpeg
+│   └── screenshot-achievements.jpeg
 └── README.md
 ```
 
 ## 📲 Publicar el APK de descarga
 
-El APK **no vive en este repo** (supera el límite de 100MB de GitHub para archivos normales). Se publica como asset de un **GitHub Release** y los botones "Descargar para Android" (hero y CTA final) enlazan directamente a esa URL:
+Los botones de la portada apuntan a la beta de Google Play (`#descargar` en `index.html`). El APK **no vive en este repo** (supera el límite de 100MB de GitHub para archivos normales). Si hay que volver a servir un APK, se publica como asset de un **GitHub Release** y se actualizan los enlaces:
 
 ```
 https://github.com/jagcweb/sushimetro-landing/releases/download/apk-v1.0.0/sushimetro.apk
