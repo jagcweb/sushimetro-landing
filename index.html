@@ -462,12 +462,15 @@
 
   /* Aviso de cookies (Google Analytics solo se carga tras aceptar) */
   .cookie-banner {
-    position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 60;
+    position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 100;
     max-width: 560px; margin: 0 auto; padding: 18px 20px;
     background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: var(--radius);
     box-shadow: 0 20px 50px -20px rgba(0,0,0,0.7);
   }
   .cookie-banner[hidden] { display: none; }
+  /* La notificacion decorativa de logros no debe tapar ni distraer del aviso:
+     ocultar el boton de Rechazar seria un patron enganoso para la AEPD. */
+  body.cookies-abiertas .toast { visibility: hidden; }
   .cookie-banner p { margin: 0 0 14px; color: var(--cream-dim); font-size: 0.9rem; line-height: 1.5; }
   .cookie-banner a { color: var(--cream); }
   .cookie-actions { display: flex; gap: 10px; justify-content: flex-end; }
@@ -850,9 +853,13 @@
    * La elección se guarda en localStorage y se puede cambiar desde el pie.
    */
   (function () {
-    var GA_ID = 'G-PENDIENTE';
+    var GA_ID = 'G-QTYFDJVEN3';
     var KEY = 'sushimetro_cookies';
     var banner = document.getElementById('cookie-banner');
+    function mostrarAviso(si) {
+      banner.hidden = !si;
+      document.body.classList.toggle('cookies-abiertas', si);
+    }
 
     // Mientras no haya ID de Analytics no se pide consentimiento para nada:
     // ni aviso de cookies ni enlace para configurarlas.
@@ -882,7 +889,7 @@
 
     function decidir(valor) {
       try { localStorage.setItem(KEY, valor); } catch (e) {}
-      banner.hidden = true;
+      mostrarAviso(false);
       if (valor === 'granted') {
         cargarAnalytics();
       } else if (window.__gaCargado) {
@@ -902,14 +909,14 @@
     var guardado = null;
     try { guardado = localStorage.getItem(KEY); } catch (e) {}
     if (guardado === 'granted') cargarAnalytics();
-    else if (guardado !== 'denied') banner.hidden = false;
+    else if (guardado !== 'denied') mostrarAviso(true);
 
     banner.addEventListener('click', function (e) {
       var v = e.target.getAttribute('data-consent');
       if (v) decidir(v);
     });
     document.querySelectorAll('[data-open-cookies]').forEach(function (b) {
-      b.addEventListener('click', function () { banner.hidden = false; });
+      b.addEventListener('click', function () { mostrarAviso(true); });
     });
 
     // Embudo de la beta: cada paso de la guía de instalación se registra como
