@@ -1,25 +1,143 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sushimetro — Cuenta tus piezas de sushi</title>
-<meta name="description" content="Sushimetro: contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
+<title>Sushimetro — Contador de sushi gratis para Android</title>
+<meta name="description" content="Sushimetro es el contador de sushi gratis para Android. Anota las piezas de cada buffet libre, guarda el historial, desbloquea logros y compite en el ranking." />
+<link rel="canonical" href="https://sushimetro.app/" />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://sushimetro.app/" />
-<meta property="og:title" content="Sushimetro — Cuenta tus piezas de sushi" />
-<meta property="og:description" content="Contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
+<meta property="og:title" content="Sushimetro — Contador de sushi gratis para Android" />
+<meta property="og:description" content="Sushimetro es el contador de sushi gratis para Android. Anota las piezas de cada buffet libre, guarda el historial, desbloquea logros y compite en el ranking." />
 <meta property="og:image" content="https://sushimetro.app/assets/og-image.png" />
 <meta property="og:image:width" content="512" />
 <meta property="og:image:height" content="512" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:site_name" content="Sushimetro" />
 
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Sushimetro — Cuenta tus piezas de sushi" />
-<meta name="twitter:description" content="Contador de sushi con logros, rankings y estadísticas. Descarga la app para Android." />
+<meta name="twitter:title" content="Sushimetro — Contador de sushi gratis para Android" />
+<meta name="twitter:description" content="Sushimetro es el contador de sushi gratis para Android. Anota las piezas de cada buffet libre, guarda el historial, desbloquea logros y compite en el ranking." />
 <meta name="twitter:image" content="https://sushimetro.app/assets/og-image.png" />
+
+<link rel="preload" as="image" href="assets/screenshot-counter-new.png" fetchpriority="high" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://sushimetro.app/#organization",
+      "name": "Sushimetro",
+      "alternateName": "Sushi Metro",
+      "url": "https://sushimetro.app/",
+      "logo": "https://sushimetro.app/assets/icon-256.png",
+      "email": "hola@jagcweb.es"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sushimetro.app/#website",
+      "name": "Sushimetro",
+      "alternateName": "Contador de sushi",
+      "url": "https://sushimetro.app/",
+      "inLanguage": "es-ES",
+      "publisher": { "@id": "https://sushimetro.app/#organization" }
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": "https://sushimetro.app/#app",
+      "name": "Sushimetro",
+      "alternateName": ["Sushi Metro", "Contador de sushi"],
+      "url": "https://sushimetro.app/",
+      "operatingSystem": "Android",
+      "applicationCategory": "LifestyleApplication",
+      "inLanguage": "es-ES",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "description": "Contador de sushi gratis para Android. Anota las piezas de cada buffet libre, desbloquea logros y sube de rango.",
+      "image": "https://sushimetro.app/assets/icon-256.png",
+      "author": { "@id": "https://sushimetro.app/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://sushimetro.app/#faq",
+      "url": "https://sushimetro.app/#preguntas",
+      "inLanguage": "es-ES",
+      "isPartOf": { "@id": "https://sushimetro.app/#website" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué es Sushimetro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sushimetro es un contador de sushi gratis para Android. Anotas las piezas de cada visita, desbloqueas logros y compites en un ranking global."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Sirve para contar un buffet libre?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Está pensado para el buffet libre y también para cualquier comida de sushi: sumas las piezas de esa visita y quedan en tu historial."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Sushimetro es gratis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, la app es gratis. Está en beta en Google Play: te unes al grupo de testers, aceptas la invitación e instalas desde Play. La cuenta de Google del móvil y la del grupo tienen que ser la misma."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se anotan las piezas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "De una en una, o de cinco y de diez con los accesos rápidos. Cada toque suma al total de la visita."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se sube de rango?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El rango, de Hierro a Sushi God, depende de las piezas que acumulas. El nivel, hasta 100, depende de la experiencia: sesiones, récords, constancia y variedad, no solo de las piezas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Se guardan mis datos si cambio de móvil?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Si entras con tu cuenta de Google, el historial se sincroniza en la nube. Si instalaste antes el APK de esta web, desinstálalo y entra por Google Play para seguir recibiendo actualizaciones."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo elimino mi cuenta y mis datos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En la app, entra en Perfil y pulsa Eliminar mi cuenta. Si ya no la tienes instalada, usa la página de eliminación de cuenta o escribe a hola@jagcweb.es. Se borran sesiones, estadísticas, logros y tu puesto en el ranking."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 
 <style>
   :root {
@@ -507,11 +625,80 @@
     .back-to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; }
     .back-to-top svg { width: 20px; height: 20px; }
   }
+
+  /* Encabezado para buscadores y lectores de pantalla. No ocupa espacio ni se ve. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+    pointer-events: none;
+  }
+
+  /* Preguntas frecuentes: mismos tokens visuales que el resto de la landing. */
+  .faq-list {
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+    max-width: 760px;
+  }
+  .faq-item {
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    padding: 20px 48px 20px 22px;
+    color: var(--cream);
+    position: relative;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::marker { content: ''; }
+  .faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--cream-mute);
+  }
+  .faq-item[open] summary::after { content: '\2013'; }
+  .faq-item summary:hover { color: var(--red); }
+  .faq-item summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .faq-item p {
+    padding: 0 22px 20px;
+    color: var(--cream-dim);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .faq-item a { color: var(--cream); }
+  .faq-item a:hover { color: var(--red); }
+
+  /* Los atributos width/height solo reservan el hueco. La altura la sigue mandando el CSS. */
+  .phone img { height: auto; }
 </style>
+</head>
+<body>
+<h1 class="visually-hidden">Sushimetro: contador de sushi gratis para Android</h1>
 
 <nav class="nav">
   <div class="wrap nav-inner">
-    <div class="brand"><img src="assets/icon-96.png" alt="" />Sushimetro</div>
+    <div class="brand"><img src="assets/icon-96.png" alt="" width="96" height="96" />Sushimetro</div>
     <a class="nav-cta" href="#descargar">Descargar</a>
   </div>
 </nav>
@@ -538,7 +725,7 @@
 
     <div class="phone-stage">
       <div class="phone-glow" aria-hidden="true"></div>
-      <div class="phone"><img src="assets/screenshot-counter-new.png" alt="Pantalla principal de Sushimetro mostrando un contador de piezas de sushi" /></div>
+      <div class="phone"><img src="assets/screenshot-counter-new.png" alt="Pantalla principal de Sushimetro mostrando un contador de piezas de sushi" width="390" height="844" decoding="async" fetchpriority="high" /></div>
       <div class="float-card float-rank">
         <span class="seal-mini gold"><svg viewBox="0 0 24 24" fill="#1a1200"><path d="M4 18h16L19 9l-4 4-3-7-3 7-4-4L4 18Z"/><circle cx="5" cy="8" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="19" cy="8" r="1.4"/></svg></span>
         SUSHI GOD · #1
@@ -747,15 +934,15 @@
       </div>
       <div class="screens">
         <div class="screen-item">
-          <div class="phone"><img src="assets/screenshot-counter-new.png" alt="Pantalla de contador con piezas registradas" /></div>
+          <div class="phone"><img src="assets/screenshot-counter-new.png" alt="Pantalla de contador con piezas registradas" width="390" height="844" loading="lazy" decoding="async" /></div>
           <div class="screen-cap">Contador</div>
         </div>
         <div class="screen-item">
-          <div class="phone"><img src="assets/screenshot-stats-new.png" alt="Pantalla de estadísticas con total de piezas y ranking" /></div>
+          <div class="phone"><img src="assets/screenshot-stats-new.png" alt="Pantalla de estadísticas con total de piezas y ranking" width="390" height="844" loading="lazy" decoding="async" fetchpriority="low" /></div>
           <div class="screen-cap">Estadísticas</div>
         </div>
         <div class="screen-item">
-          <div class="phone"><img src="assets/screenshot-achievements-new.png" alt="Pantalla de misiones, racha y logros desbloqueados" /></div>
+          <div class="phone"><img src="assets/screenshot-achievements-new.png" alt="Pantalla de misiones, racha y logros desbloqueados" width="390" height="844" loading="lazy" decoding="async" fetchpriority="low" /></div>
           <div class="screen-cap">Logros</div>
         </div>
       </div>
@@ -822,6 +1009,44 @@
       </div>
 
       <p class="cta-note">¿Instalaste antes el APK de esta web? Desinstálalo y entra por aquí para recibir las actualizaciones. Si usabas la app con tu cuenta de Google, no pierdes nada: tus datos están en la nube.</p>
+    </div>
+  </section>
+
+  <section class="wrap" id="preguntas">
+    <div class="section-head center">
+      <span class="eyebrow" style="justify-content:center">Preguntas frecuentes</span>
+      <h2>Sobre el contador</h2>
+      <p class="center">Cómo funciona Sushimetro en el buffet libre, en el móvil y con tu cuenta.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>¿Qué es Sushimetro?</summary>
+        <p>Sushimetro es un contador de sushi gratis para Android. Anotas las piezas de cada visita, desbloqueas logros y compites en un ranking global.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Sirve para contar un buffet libre?</summary>
+        <p>Sí. Está pensado para el buffet libre y también para cualquier comida de sushi: sumas las piezas de esa visita y quedan en tu historial.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Sushimetro es gratis?</summary>
+        <p>Sí, la app es gratis. Está en beta en Google Play: te unes al grupo de testers, aceptas la invitación e instalas desde Play. La cuenta de Google del móvil y la del grupo tienen que ser la misma.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo se anotan las piezas?</summary>
+        <p>De una en una, o de cinco y de diez con los accesos rápidos. Cada toque suma al total de la visita.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo se sube de rango?</summary>
+        <p>El rango, de Hierro a Sushi God, depende de las piezas que acumulas. El nivel, hasta 100, depende de la experiencia: sesiones, récords, constancia y variedad, no solo de las piezas.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Se guardan mis datos si cambio de móvil?</summary>
+        <p>Si entras con tu cuenta de Google, el historial se sincroniza en la nube. Si instalaste antes el APK de esta web, desinstálalo y entra por Google Play para seguir recibiendo actualizaciones.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo elimino mi cuenta y mis datos?</summary>
+        <p>En la app, entra en Perfil y pulsa Eliminar mi cuenta. Si ya no la tienes instalada, usa la <a href="delete-account.html">página de eliminación de cuenta</a> o escribe a hola@jagcweb.es. Se borran sesiones, estadísticas, logros y tu puesto en el ranking.</p>
+      </details>
     </div>
   </section>
 </main>
@@ -1030,3 +1255,5 @@
   });
 })();
 </script>
+</body>
+</html>
