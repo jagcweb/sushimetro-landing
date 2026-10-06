@@ -692,6 +692,110 @@
 
   /* Los atributos width/height solo reservan el hueco. La altura la sigue mandando el CSS. */
   .phone img { height: auto; }
+
+  /* ---------- Cómo funciona: un caso de uso por pasos ----------
+     Sin JavaScript se ven los tres planes con todos los pasos encendidos.
+     El script añade .flujo-anim para apagarlos y encenderlos en orden. */
+  .flujo-tabs {
+    display: flex; justify-content: center; gap: 32px;
+    max-width: 980px; margin: 0 auto 44px;
+    border-bottom: 1px solid var(--border);
+  }
+  .flujo-tab {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0 0 14px; margin-bottom: -1px; cursor: pointer;
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cream-mute); transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .flujo-tab::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.6; }
+  .flujo-tab:hover { color: var(--cream-dim); }
+  .flujo-tab[aria-selected="true"] { color: var(--cream); border-bottom-color: var(--red); }
+  .flujo-tab[aria-selected="true"]::before { background: var(--red); opacity: 1; box-shadow: 0 0 10px var(--red); }
+
+  .flujo-plan {
+    max-width: 980px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 40px 72px; align-items: center;
+  }
+  .flujo-plan[hidden] { display: none; }
+  .flujo:not(.flujo-anim) .flujo-plan + .flujo-plan { margin-top: 64px; }
+
+  .flujo-pasos { list-style: none; margin: 0; padding: 0; }
+  .flujo-paso { position: relative; padding: 0 0 26px 38px; }
+  .flujo-paso:last-child { padding-bottom: 0; }
+  .flujo-paso:not(:last-child)::before {
+    content: ''; position: absolute; left: 7px; top: 22px; bottom: 0;
+    border-left: 2px solid var(--red); transition: border-color 0.4s ease;
+  }
+  .flujo-paso.sigue-opcional::before { border-left-style: dashed; }
+  .flujo-nodo {
+    position: absolute; left: 0; top: 3px; width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid var(--red); background: var(--red);
+    box-shadow: 0 0 0 4px rgba(255,77,77,0.16);
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+  }
+  .es-opcional .flujo-nodo { border-style: dashed; background: var(--bg); }
+  .flujo-hora {
+    display: block; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-mute);
+  }
+  .flujo-paso strong { display: block; margin-top: 3px; font-size: 1.05rem; color: var(--cream); transition: color 0.3s; }
+  .flujo-paso p { margin: 4px 0 0; font-size: 0.93rem; line-height: 1.5; color: var(--cream-dim); transition: color 0.3s; }
+
+  .flujo-anim .flujo-paso:not(.encendido) .flujo-nodo { border-color: var(--border-strong); background: var(--bg); box-shadow: none; }
+  .flujo-anim .flujo-paso:not(.encendido) strong { color: var(--cream-mute); }
+  .flujo-anim .flujo-paso:not(.encendido) p { color: rgba(255,248,237,0.28); }
+  .flujo-anim .flujo-paso:not(.tramo)::before { border-left-color: var(--border-strong); }
+  .flujo-anim .flujo-plan:not(.completo) .tarjeta-res { opacity: 0.25; transform: translateY(12px) scale(0.97); }
+
+  /* Réplica de la tarjeta que genera la app al guardar una visita */
+  .tarjeta-res { margin: 0; transition: opacity 0.5s ease, transform 0.5s ease; }
+  .tr-cuerpo {
+    padding: 26px 24px 20px; text-align: center;
+    border-radius: 28px; border: 1px solid var(--border-strong);
+    background: linear-gradient(170deg, #1d1013, var(--bg-1) 60%);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.85);
+  }
+  .tr-eyebrow { display: block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; color: var(--cream-mute); }
+  .tr-emoji { display: block; margin-top: 14px; font-size: 2.4rem; line-height: 1; }
+  .tr-piezas { display: block; margin-top: 10px; font-family: var(--font-display); font-size: 2.1rem; font-weight: 400; line-height: 1; }
+  .tr-sub { display: block; margin-top: 8px; color: var(--cream-dim); font-size: 0.95rem; }
+  .tr-anterior { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-soft); }
+  .tr-rango { display: flex; align-items: center; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); text-align: left; }
+  .tr-rango b { display: block; font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  .tr-rango small { display: block; margin-top: 2px; color: var(--cream-mute); font-size: 0.82rem; }
+  .tr-fecha { display: block; margin-top: 14px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--cream-mute); }
+  .tarjeta-res figcaption {
+    margin-top: 12px; text-align: center;
+    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream-mute);
+  }
+
+  .flujo-pie {
+    grid-column: 1 / -1;
+    display: flex; justify-content: space-between; align-items: center; gap: 14px 32px; flex-wrap: wrap;
+    padding-top: 20px; border-top: 1px solid var(--border);
+  }
+  .flujo-resumen { margin: 0; max-width: 56ch; color: var(--cream-dim); font-size: 0.98rem; line-height: 1.55; }
+  .flujo-leyenda {
+    display: flex; gap: 20px;
+    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-mute);
+  }
+  .flujo-leyenda span::before { content: ''; display: inline-block; width: 18px; margin-right: 8px; vertical-align: middle; border-top: 2px solid var(--cream-mute); }
+  .flujo-leyenda .ley-opcional::before { border-top-style: dashed; }
+
+  @media (max-width: 900px) {
+    .flujo-plan { grid-template-columns: 1fr; }
+    .tarjeta-res { width: 100%; max-width: 320px; margin-inline: auto; }
+  }
+  @media (max-width: 640px) {
+    .flujo-tabs { flex-wrap: wrap; gap: 8px; border-bottom: 0; margin-bottom: 32px; }
+    .flujo-tab { padding: 9px 14px; margin: 0; border: 1px solid var(--border-strong); border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.08em; }
+    .flujo-tab[aria-selected="true"] { border-color: var(--red); background: rgba(255,77,77,0.1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tarjeta-res, .flujo-nodo, .flujo-paso::before, .flujo-paso strong, .flujo-paso p { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -766,6 +870,99 @@
         <svg class="trio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l3 6 6.5.9-4.7 4.6L18 21l-6-3.4L6 21l1.2-6.5L2.5 9.9 9 9z"/></svg>
         <h3>Compite</h3>
         <p>Ranking global en tiempo real, de Hierro a Sushi God. Demuestra quién es el verdadero itamae.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap flujo" id="como-funciona">
+    <div class="section-head center">
+      <span class="eyebrow" style="justify-content:center">Cómo funciona</span>
+      <h2>Una noche de sushi, paso a paso.</h2>
+      <p class="center">Elige un plan y mira cómo funciona Sushimetro, desde que te sientas hasta que compartes el resultado.</p>
+    </div>
+
+    <div class="flujo-tabs" role="tablist" aria-label="Elige un plan">
+      <button type="button" class="flujo-tab" role="tab" id="tab-amigos" aria-controls="plan-amigos" aria-selected="true">Cena con amigos</button>
+      <button type="button" class="flujo-tab" role="tab" id="tab-rapida" aria-controls="plan-rapida" aria-selected="false" tabindex="-1">Comida rápida</button>
+      <button type="button" class="flujo-tab" role="tab" id="tab-record" aria-controls="plan-record" aria-selected="false" tabindex="-1">Noche de récord</button>
+    </div>
+
+    <div class="flujo-plan" id="plan-amigos" role="tabpanel" aria-labelledby="tab-amigos">
+      <ol class="flujo-pasos">
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">21:00</span><strong>Abres el contador</strong><p>Sushimetro arranca directamente en él. Cada uno, en su móvil.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">21:05</span><strong>Un toque por pieza</strong><p>Si llega una bandeja entera, +5 o +10. Si te equivocas, −1.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:30</span><strong>Finalizas la visita</strong><p>«¿Registrar 34 piezas de sushi?» Confirmas y queda guardada con fecha y hora.</p></li>
+        <li class="flujo-paso sigue-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:30</span><strong>Tarjeta de resultado</strong><p>Tus piezas, tu rango y tu total, en una imagen.</p></li>
+        <li class="flujo-paso es-opcional sigue-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:31</span><strong>La compartís en el grupo</strong><p>Cada uno manda la suya y se ve quién ha ganado.</p></li>
+        <li class="flujo-paso es-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">Después</span><strong>Ranking global</strong><p>Si entras con tu cuenta de Google, tus piezas suben al ranking.</p></li>
+      </ol>
+      <figure class="tarjeta-res">
+        <div class="tr-cuerpo">
+          <span class="tr-eyebrow">SUSHIMETRO</span>
+          <span class="tr-emoji" aria-hidden="true">🍣</span>
+          <strong class="tr-piezas">34 PIEZAS</strong>
+          <span class="tr-sub">¡Sesión registrada!</span>
+          <div class="tr-rango"><span class="lb-seal seal--3">III</span><span><b>Plata</b><small>212 piezas en total</small></span></div>
+          <span class="tr-fecha">2 oct 2026 · 22:30</span>
+        </div>
+        <figcaption>Tarjeta de resultado de ejemplo</figcaption>
+      </figure>
+      <div class="flujo-pie">
+        <p class="flujo-resumen">Cada uno cuenta lo suyo y, al terminar, la tarjeta de resultado zanja la discusión.</p>
+        <div class="flujo-leyenda" aria-hidden="true"><span>Siempre</span><span class="ley-opcional">Opcional</span></div>
+      </div>
+    </div>
+
+    <div class="flujo-plan" id="plan-rapida" role="tabpanel" aria-labelledby="tab-rapida">
+      <ol class="flujo-pasos">
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">14:00</span><strong>Abres el contador</strong><p>Sin registrarte: como invitado, todo se guarda en el móvil.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">14:05</span><strong>Un toque por pieza</strong><p>Mientras comes, sin estar pendiente de la cuenta.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">14:40</span><strong>Finalizas la visita</strong><p>18 piezas, guardadas en tu historial con fecha y hora.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">14:40</span><strong>Tu media, al día</strong><p>El historial recalcula cuántas piezas comes por visita.</p></li>
+        <li class="flujo-paso sigue-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">Esta semana</span><strong>Misiones y racha</strong><p>«Haz 2 visitas» pasa a 1/2 y tu racha semanal sigue viva.</p></li>
+        <li class="flujo-paso es-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">Cuando quieras</span><strong>Inicias sesión con Google</strong><p>Lo que guardaste como invitado se sube a la nube.</p></li>
+      </ol>
+      <figure class="tarjeta-res">
+        <div class="tr-cuerpo">
+          <span class="tr-eyebrow">SUSHIMETRO</span>
+          <span class="tr-emoji" aria-hidden="true">🍣</span>
+          <strong class="tr-piezas">18 PIEZAS</strong>
+          <span class="tr-sub">¡Sesión registrada!</span>
+          <div class="tr-rango"><span class="lb-seal seal--3">III</span><span><b>Plata</b><small>230 piezas en total</small></span></div>
+          <span class="tr-fecha">29 sep 2026 · 14:40</span>
+        </div>
+        <figcaption>Tarjeta de resultado de ejemplo</figcaption>
+      </figure>
+      <div class="flujo-pie">
+        <p class="flujo-resumen">Una comida rápida también cuenta: suma a tu media, a tus misiones y a tu racha.</p>
+        <div class="flujo-leyenda" aria-hidden="true"><span>Siempre</span><span class="ley-opcional">Opcional</span></div>
+      </div>
+    </div>
+
+    <div class="flujo-plan" id="plan-record" role="tabpanel" aria-labelledby="tab-record">
+      <ol class="flujo-pasos">
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">21:00</span><strong>Tu récord: 41 piezas</strong><p>Esta semana tienes activa la misión «Supera tu récord».</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">21:05</span><strong>Un toque por pieza</strong><p>Con +5 y +10 cuando llegan las bandejas.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:45</span><strong>Finalizas la visita</strong><p>«¿Registrar 45 piezas de sushi?» Confirmas.</p></li>
+        <li class="flujo-paso"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:45</span><strong>Nuevo récord personal</strong><p>La tarjeta lo celebra y recuerda tu récord anterior.</p></li>
+        <li class="flujo-paso sigue-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:45</span><strong>XP extra y misión cumplida</strong><p>El récord suma 100 XP para tu nivel, además de la misión.</p></li>
+        <li class="flujo-paso es-opcional"><span class="flujo-nodo" aria-hidden="true"></span><span class="flujo-hora">22:45</span><strong>Logro desbloqueado</strong><p>Si tu total cruza uno de los hitos de piezas, se desbloquea uno nuevo.</p></li>
+      </ol>
+      <figure class="tarjeta-res">
+        <div class="tr-cuerpo">
+          <span class="tr-eyebrow">SUSHIMETRO</span>
+          <span class="tr-emoji" aria-hidden="true">🍣</span>
+          <strong class="tr-piezas">45 PIEZAS</strong>
+          <span class="tr-sub">Nuevo récord personal 🏆</span>
+          <span class="tr-anterior">Récord anterior: 41 piezas</span>
+          <div class="tr-rango"><span class="lb-seal seal--4">IV</span><span><b>Oro</b><small>396 piezas en total</small></span></div>
+          <span class="tr-fecha">26 sep 2026 · 22:45</span>
+        </div>
+        <figcaption>Tarjeta de resultado de ejemplo</figcaption>
+      </figure>
+      <div class="flujo-pie">
+        <p class="flujo-resumen">Batir tu marca queda en la tarjeta, cumple la misión de la semana y te da XP extra.</p>
+        <div class="flujo-leyenda" aria-hidden="true"><span>Siempre</span><span class="ley-opcional">Opcional</span></div>
       </div>
     </div>
   </section>
@@ -1254,6 +1451,81 @@
   btn.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
+})();
+</script>
+
+<script>
+/*
+ * «Cómo funciona»: pestañas con tres planes y pasos que se encienden en orden,
+ * como si la visita ocurriera delante del lector. Sin JavaScript se ven los
+ * tres planes completos; con movimiento reducido, los pasos se encienden de golpe.
+ */
+(function () {
+  var seccion = document.getElementById('como-funciona');
+  if (!seccion) return;
+  var tabs = [].slice.call(seccion.querySelectorAll('[role="tab"]'));
+  var planes = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+  var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var actual = 0, visto = false, relojes = [];
+
+  function encender(plan) {
+    relojes.forEach(clearTimeout);
+    relojes = [];
+    var pasos = [].slice.call(plan.querySelectorAll('.flujo-paso'));
+    plan.classList.remove('completo');
+    pasos.forEach(function (p) { p.classList.remove('encendido', 'tramo'); });
+    pasos.forEach(function (p, i) {
+      relojes.push(setTimeout(function () {
+        p.classList.add('encendido');
+        // El tramo que llega a este paso se enciende con él.
+        if (i > 0) pasos[i - 1].classList.add('tramo');
+        if (i === pasos.length - 1) plan.classList.add('completo');
+      }, reducido ? 0 : 200 + i * 520));
+    });
+  }
+
+  function elegir(i, conFoco) {
+    actual = i;
+    tabs.forEach(function (t, j) {
+      t.setAttribute('aria-selected', String(i === j));
+      t.tabIndex = i === j ? 0 : -1;
+      planes[j].hidden = i !== j;
+    });
+    if (conFoco) tabs[i].focus();
+    if (visto) encender(planes[i]);
+  }
+
+  function elegidoPorUsuario(i, conFoco) {
+    visto = true;
+    elegir(i, conFoco);
+    if (window.__gaCargado) gtag('event', 'como_funciona', { plan: tabs[i].id.replace('tab-', '') });
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { elegidoPorUsuario(i); });
+    t.addEventListener('keydown', function (e) {
+      var salto = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!salto) return;
+      e.preventDefault();
+      elegidoPorUsuario((i + salto + tabs.length) % tabs.length, true);
+    });
+  });
+
+  seccion.classList.add('flujo-anim');
+  elegir(0);
+
+  // El primer plan se enciende cuando el lector llega a la sección.
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entradas) {
+      if (!entradas[0].isIntersecting) return;
+      obs.disconnect();
+      if (!visto) { visto = true; encender(planes[actual]); }
+    }, { threshold: 0.3 });
+    obs.observe(planes[0].querySelector('.flujo-pasos'));
+  } else {
+    visto = true;
+    encender(planes[actual]);
+  }
 })();
 </script>
 </body>
