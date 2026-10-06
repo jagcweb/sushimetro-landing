@@ -1,0 +1,192 @@
+/*
+ * Estilos base de sushimetro.app para las páginas nuevas (contador web y blog).
+ * La portada lleva su CSS incrustado en index.html; estas reglas son una copia
+ * literal de ese CSS (variables, tipografía, barra superior, pie, tarjetas y FAQ)
+ * para reutilizar el mismo aspecto sin tocar las páginas existentes.
+ * Si cambia el diseño de la portada, hay que actualizar también este fichero.
+ */
+
+:root {
+    --bg: #09090B;
+    --bg-1: #131317;
+    --bg-2: #1C1C22;
+    --border: rgba(255,248,237,0.08);
+    --border-strong: rgba(255,248,237,0.16);
+    --cream: #FFF8ED;
+    --cream-dim: rgba(255,248,237,0.62);
+    --cream-mute: rgba(255,248,237,0.4);
+    --red: #FF4D4D;
+    --red-dim: #C4342F;
+    --wasabi: #B7E34A;
+    --wasabi-dim: #8FB637;
+    --gold: #E8B923;
+    --gold-soft: #F4D35E;
+    --purple: #A78BFA;
+    --ice: #9FE8D4;
+    --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+    --font-heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+    --radius-sm: 10px;
+    --radius: 20px;
+    --radius-lg: 28px;
+  }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-heading);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--red); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 28px; }
+.eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--cream-dim);
+  }
+.eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--red); display: inline-block; }
+.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+.brand img { width: 32px; height: 32px; border-radius: 9px; }
+.nav-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--red); color: #0b0705; font-family: var(--font-heading); font-weight: 700;
+    font-size: 0.8rem; letter-spacing: 0.03em; padding: 11px 20px; border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(255,77,77,0.35), 0 14px 30px -12px rgba(255,77,77,0.55);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+.nav-cta:hover { color: #0b0705; transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,77,77,0.5), 0 18px 36px -10px rgba(255,77,77,0.7); }
+.btn-download {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, var(--red), var(--red-dim));
+    color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; letter-spacing: 0.01em;
+    padding: 18px 30px; border-radius: var(--radius-sm); text-transform: uppercase;
+    box-shadow: 0 18px 44px -16px rgba(255,77,77,0.6);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+.btn-download:hover { color: #fff; transform: translateY(-3px); box-shadow: 0 22px 50px -14px rgba(255,77,77,0.75); }
+.btn-download svg { width: 22px; height: 22px; flex-shrink: 0; }
+.section-head { max-width: 60ch; margin-bottom: 44px; }
+.section-head h2 {
+    margin-top: 14px; font-family: var(--font-display); text-transform: uppercase;
+    font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.02;
+  }
+.section-head p { margin-top: 16px; color: var(--cream-dim); font-size: 1.05rem; line-height: 1.6; max-width: 52ch; }
+.cta-card {
+    position: relative; background: linear-gradient(160deg, #14090a, var(--bg) 60%);
+    border: 1px solid rgba(255,77,77,0.25); border-radius: var(--radius-lg);
+    padding: 72px clamp(20px, 6vw, 70px); overflow: hidden;
+  }
+.cta-card::before {
+    content: ''; position: absolute; inset: -20% -10% auto -10%; height: 60%;
+    background: radial-gradient(500px 260px at 50% 0%, rgba(255,77,77,0.28), transparent 70%);
+    pointer-events: none;
+  }
+.cta-card h2 { position: relative; font-family: var(--font-display); text-transform: uppercase; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.04; }
+.cta-card p { position: relative; margin-top: 18px; font-size: 1.05rem; color: var(--cream-dim); max-width: 48ch; margin-inline: auto; }
+.cta-card .btn-download { position: relative; margin-top: 36px; }
+.cta-note { position: relative; margin-top: 20px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-mute); }
+footer { border-top: 1px solid var(--border); padding-block: 34px; color: var(--cream-mute); font-size: 0.85rem; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.footer-links { display: flex; gap: 22px; font-family: var(--font-mono); font-size: 0.78rem; }
+.footer-links a:hover { color: var(--cream); }
+.faq-list {
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+    max-width: 760px;
+  }
+.faq-item {
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    padding: 20px 48px 20px 22px;
+    color: var(--cream);
+    position: relative;
+  }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::marker { content: ''; }
+.faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--cream-mute);
+  }
+.faq-item[open] summary::after { content: '\2013'; }
+.faq-item summary:hover { color: var(--red); }
+.faq-item summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.faq-item p {
+    padding: 0 22px 20px;
+    color: var(--cream-dim);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+.faq-item a { color: var(--cream); }
+.faq-item a:hover { color: var(--red); }
+
+@media (max-width: 640px) {
+  .wrap { padding-inline: 20px; }
+  .btn-download { width: 100%; justify-content: center; }
+  .cta-card { padding: 48px 22px; }
+}
+
+/* Aviso de cookies: mismo diseño que en la portada */
+.footer-links button {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font: inherit; text-decoration: inherit;
+}
+.footer-links a:hover, .footer-links button:hover { color: var(--cream); }
+.cookie-banner {
+  position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 100;
+  max-width: 560px; margin: 0 auto; padding: 18px 20px;
+  background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: var(--radius);
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.7);
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner p { margin: 0 0 14px; color: var(--cream-dim); font-size: 0.9rem; line-height: 1.5; }
+.cookie-banner a { color: var(--cream); text-decoration: underline; }
+.cookie-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.cookie-actions button {
+  padding: 9px 18px; border-radius: 999px; cursor: pointer;
+  font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+  border: 1px solid var(--border-strong); background: transparent; color: var(--cream);
+}
+.cookie-actions .cookie-accept { background: var(--red); border-color: var(--red); color: #0b0705; }
+
+/* Miga de pan */
+.migas { padding-top: 26px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-mute); }
+.migas ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.migas li + li::before { content: '›'; margin-right: 6px; color: var(--cream-mute); }
+.migas a { color: var(--cream-dim); }
+.migas a:hover { color: var(--red); }
+
+@media (max-width: 640px) {
+  .wrap { padding-inline: 18px; }
+  .cookie-banner { left: 12px; right: 12px; bottom: 12px; }
+  .footer-links { flex-wrap: wrap; gap: 14px; }
+}

@@ -1,0 +1,129 @@
+/* Estilos propios de /contador-de-sushi/. La base del sitio está en /assets/sitio.css. */
+
+.contador-cabecera { padding-block: 28px 8px; max-width: 62ch; }
+.contador-cabecera h1 {
+  margin-top: 14px;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: 1;
+}
+.contador-cabecera p { margin: 16px 0 0; color: var(--cream-dim); font-size: 1.05rem; line-height: 1.6; }
+
+.contador { margin-top: 28px; }
+
+/* Total de la mesa */
+.mesa {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding: 20px 22px; border-radius: var(--radius);
+  background: linear-gradient(160deg, #14090a, var(--bg-1) 70%);
+  border: 1px solid rgba(255,77,77,0.25);
+}
+.mesa-total { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.mesa-num {
+  font-family: var(--font-mono); font-weight: 700; color: var(--cream);
+  font-size: clamp(2.6rem, 9vw, 3.4rem); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.mesa-txt { font-family: var(--font-mono); font-size: 0.8rem; color: var(--cream-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.btn-reiniciar {
+  padding: 10px 18px; border-radius: 999px; cursor: pointer;
+  font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+  background: transparent; color: var(--cream); border: 1px solid var(--border-strong);
+  transition: border-color .2s, background .2s;
+}
+.btn-reiniciar:hover:not(:disabled) { border-color: var(--red); background: rgba(255,77,77,0.08); }
+.btn-reiniciar:disabled { opacity: 0.4; cursor: default; }
+
+/* Tarjetas de comensal */
+.comensales {
+  list-style: none; margin: 16px 0 0; padding: 0;
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+.comensal {
+  background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 16px 18px; text-align: center;
+  transition: border-color .2s;
+}
+.comensal.es-lider { border-color: rgba(232,185,35,0.55); }
+.comensal-cab { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.comensal-nombre {
+  font-weight: 700; font-size: 1.05rem; text-align: left;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.comensal-quitar {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+  background: transparent; color: var(--cream-mute); border: 1px solid var(--border);
+  font-size: 1.2rem; line-height: 1;
+}
+.comensal-quitar:hover { color: var(--red); border-color: var(--red); }
+.comensal-piezas {
+  margin-top: 10px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 3.4rem; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.comensal-unidad { margin-top: 4px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-mute); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.comensal-botones { margin-top: 16px; display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+.comensal-botones button {
+  min-height: 64px; border-radius: var(--radius-sm); cursor: pointer;
+  font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  transition: transform .08s ease, opacity .2s;
+}
+.comensal-botones button:active:not(:disabled) { transform: scale(0.96); }
+.btn-menos { background: var(--bg-2); color: var(--cream); border: 1px solid var(--border-strong); }
+.btn-menos:disabled { opacity: 0.35; cursor: default; }
+.btn-mas {
+  background: linear-gradient(135deg, var(--red), var(--red-dim)); color: #fff; border: 0;
+  box-shadow: 0 12px 28px -14px rgba(255,77,77,0.7);
+}
+
+.comensales-vacio { margin: 16px 0 0; padding: 20px; border: 1px dashed var(--border-strong); border-radius: var(--radius); color: var(--cream-dim); text-align: center; }
+
+/* Añadir comensal */
+.anadir { margin-top: 18px; }
+.anadir label { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--cream-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.anadir-fila { display: flex; gap: 10px; }
+.anadir input {
+  flex: 1; min-width: 0; min-height: 52px; padding: 0 16px;
+  background: var(--bg-1); color: var(--cream); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  font-family: var(--font-heading); font-size: 1rem;
+}
+.anadir input::placeholder { color: var(--cream-mute); }
+.anadir input:focus { outline: 2px solid var(--red); outline-offset: 1px; }
+.anadir button {
+  min-height: 52px; padding: 0 22px; border-radius: var(--radius-sm); cursor: pointer;
+  background: var(--cream); color: #0b0705; border: 0;
+  font-family: var(--font-heading); font-weight: 700; font-size: 1rem;
+}
+.anadir-aviso { min-height: 1.2em; margin: 8px 0 0; color: var(--gold-soft); font-size: 0.9rem; }
+
+/* Texto de ayuda */
+.texto { margin-top: 56px; max-width: 70ch; color: var(--cream-dim); line-height: 1.7; font-size: 1.02rem; }
+.texto h2 {
+  margin: 40px 0 14px; color: var(--cream);
+  font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.4rem, 4vw, 1.9rem); line-height: 1.1;
+}
+.texto h2:first-child { margin-top: 0; }
+.texto strong { color: var(--cream); }
+.texto ol { padding-left: 1.2em; }
+.texto li { margin-bottom: 8px; }
+.texto p { margin: 0 0 14px; }
+
+/* CTA discreto a la app */
+.cta-app {
+  margin: 48px 0 64px; max-width: 70ch;
+  padding: 18px 20px; border-radius: var(--radius);
+  background: var(--bg-1); border: 1px solid var(--border);
+  color: var(--cream-dim); line-height: 1.6;
+}
+.cta-app p { margin: 0 0 8px; }
+.cta-app strong { color: var(--cream); }
+.cta-app a { color: var(--red); font-weight: 700; }
+
+@media (max-width: 640px) {
+  .mesa { padding: 16px; }
+  .comensales { grid-template-columns: 1fr; }
+  .comensal-piezas { font-size: 3rem; }
+}
